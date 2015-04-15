@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="pa036"/>
+  <table-filter match-name="contact_user"/>
+  <table-filter match-name="sport"/>
+  <table-filter match-name="event_competitor"/>
+  <table-filter match-name="event"/>
+  <table-filter match-name="user_favorite_sport"/>
+  <table-filter match-name="status"/>
+  <table-filter match-name="contact"/>
+  <table-filter match-name="country"/>
+  <table-filter match-name="user"/>
+  <table-filter match-name="user_role"/>
+  <table-filter match-name="ticket"/>
+  <table-filter match-name="role"/>
+  <table-filter match-name="ticket_event"/>
+  <table-filter match-name="league"/>
+  <table-filter match-name="competitor"/>
+</hibernate-reverse-engineering>

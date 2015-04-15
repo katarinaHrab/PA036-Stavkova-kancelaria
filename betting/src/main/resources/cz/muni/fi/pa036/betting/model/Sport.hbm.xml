@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="cz.muni.fi.pa036.betting.model.Sport" table="sport" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="kindofsport" type="string">
+            <column name="kindofsport" length="50" not-null="true" />
+        </property>
+        <set name="userFavoriteSports" table="user_favorite_sport" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sportid" not-null="true" />
+            </key>
+            <one-to-many class="cz.muni.fi.pa036.betting.model.UserFavoriteSport" />
+        </set>
+        <set name="competitors" table="competitor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sportid" not-null="true" />
+            </key>
+            <one-to-many class="cz.muni.fi.pa036.betting.model.Competitor" />
+        </set>
+        <set name="leagues" table="league" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sportid" not-null="true" />
+            </key>
+            <one-to-many class="cz.muni.fi.pa036.betting.model.League" />
+        </set>
+    </class>
+</hibernate-mapping>

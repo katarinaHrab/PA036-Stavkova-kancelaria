@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="cz.muni.fi.pa036.betting.model.UserFavoriteSport" table="user_favorite_sport" schema="public" optimistic-lock="version">
+        <composite-id name="id" class="cz.muni.fi.pa036.betting.model.UserFavoriteSportId">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="userid" type="int">
+                <column name="userid" />
+            </key-property>
+            <key-property name="sportid" type="int">
+                <column name="sportid" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" update="false" insert="false" fetch="select">
+            <column name="sportid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="cz.muni.fi.pa036.betting.model.User" update="false" insert="false" fetch="select">
+            <column name="userid" not-null="true" />
+        </many-to-one>
+        <property name="priority" type="int">
+            <column name="priority" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

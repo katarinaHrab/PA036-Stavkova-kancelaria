@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="cz.muni.fi.pa036.betting.model.Event" table="event" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="league" class="cz.muni.fi.pa036.betting.model.League" fetch="select">
+            <column name="leagueid" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="50" not-null="true" />
+        </property>
+        <property name="place" type="string">
+            <column name="place" length="50" not-null="true" />
+        </property>
+        <property name="date" type="date">
+            <column name="Date" length="13" not-null="true" />
+        </property>
+        <property name="drawodds" type="double">
+            <column name="drawodds" precision="17" scale="17" not-null="true" />
+        </property>
+        <set name="ticketEvents" table="ticket_event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="eventid" not-null="true" />
+            </key>
+            <one-to-many class="cz.muni.fi.pa036.betting.model.TicketEvent" />
+        </set>
+        <set name="eventCompetitors" table="event_competitor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="eventid" not-null="true" />
+            </key>
+            <one-to-many class="cz.muni.fi.pa036.betting.model.EventCompetitor" />
+        </set>
+    </class>
+</hibernate-mapping>

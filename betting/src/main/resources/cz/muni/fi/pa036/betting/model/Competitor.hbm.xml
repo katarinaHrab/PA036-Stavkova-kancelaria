@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="cz.muni.fi.pa036.betting.model.Competitor" table="competitor" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="country" class="cz.muni.fi.pa036.betting.model.Country" fetch="select">
+            <column name="countryid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" fetch="select">
+            <column name="sportid" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="50" not-null="true" />
+        </property>
+        <set name="eventCompetitors" table="event_competitor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="competitorid" not-null="true" />
+            </key>
+            <one-to-many class="cz.muni.fi.pa036.betting.model.EventCompetitor" />
+        </set>
+    </class>
+</hibernate-mapping>
