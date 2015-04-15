@@ -1,0 +1,441 @@
+/* hlavni layout */
+body 
+{ 
+    font-family: "Segoe UI", Segoe, Calibri, Helvetica, sans-serif; 
+    /*background-color: honeydew;*/ 
+    font-size: 14px;
+}
+
+#navigace { width: 170px; float: left; /*margin-left: -1px;*/ }
+#obsah { padding: 10px; padding-top: 0px; margin-left: 180px; }
+#obsahBezNavigace { padding: 10px; padding-top: 0px; }
+
+a:link { text-decoration: none; color : blue; }
+a:visited { text-decoration: none; color : blue; }
+a:hover { text-decoration: underline; color : blue; }
+h1 { text-align: center; text-decoration: underline; text-shadow: aquamarine; }
+
+.redMessage { color: red; font-weight: bold; font-size: 2em; }
+
+.indexLogo { max-width: 100%; }
+
+/* horni cast stranky */
+
+#topPanel {
+    background-color: #2175bc;
+    margin-bottom: 20px;
+}
+
+#topPanel img.logo {
+    float: left;
+    padding: 3px 3px 3px 40px;
+}
+
+#topPanel h1 {
+    color: #FFF;
+    text-decoration: none;
+    margin: 0 0 0 0;
+    padding: 10px 0 10px 0;
+    font-weight: normal;
+    font-size: 2.5em;
+}
+
+.userinfo { 
+    text-align: right;
+    font-size: 11px;
+    float: right;
+    color: #FFF;
+    text-align: center;
+    margin-right: 10px;
+    padding-top: 10px;
+}
+
+#helpTextWrapper {
+    float: right;
+    display: none;
+}
+
+#helpTextIcon {
+    font-weight: bold;
+    font-size: 3em;
+    color: #b0cb1f;
+    float: right;
+    cursor: help;
+    margin-right: 20px;
+}
+
+#helpTextContent {
+    float: none;
+    border: 2px solid #2586d7;
+    padding: 15px;
+    background-color: #EEE;
+    color: #2586d7;
+    font-size: 1em;
+    font-weight: normal;
+    position: absolute;
+    top: 64px;
+    right: 75px;
+    min-width: 200px;
+}
+
+#helpTextContent textarea {
+    height: 300px;
+    width: 100%;
+}
+
+#helpTextEdit {
+    min-width: 500px;
+}
+
+#helpTextEdit table {
+    width: 100%;
+}
+
+#helpTextEdit table td.textArea {
+    min-width: 400px;
+}
+
+#helpTextTextbox {
+    white-space: pre;
+}
+
+/* menu */
+#navigace {
+    width: 170px;
+    /*border-right: 1px solid #000;*/
+    padding: 0 0 1em 0;
+    margin-bottom: 1em;
+    background-color: #90bade;
+    color: #333;
+}
+
+#navigace ul { list-style: none;  margin: 0;  padding: 0;  border: none; }
+#navigace li { border-bottom: 1px solid #90bade;;  margin: 0; }
+#navigace li a {
+    display: block;
+    padding: 5px 5px 5px 0.5em;
+    /*border-left: 10px solid #1958b7;
+    border-right: 10px solid #508fc4;*/
+    background-color: #2175bc;
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+    font-weight: bold;
+}
+
+#navigace li ul li a {
+    font-weight: normal;
+}
+
+#navigace ul li ul li {
+    padding: 0 0 0 0px;
+    background-color: #1958b7;
+    border-left: 10px solid #2175bc;
+}
+
+#navigace ul li ul li ul li {
+    min-width: 200px;
+}
+
+html>body #navigace li a { width: auto; }
+#navigace li a:hover {
+    /*border-left: 10px solid #1c64d1;
+    border-right: 10px solid #5ba3e0;*/
+    background-color: #2586d7;
+    color: #fff;
+}
+
+/* formulare */
+input.error,
+textarea.error
+{ 
+    background-color: yellow; 
+    border: 1px gray solid;
+}
+label.error { color: red; }
+
+span.errorFieldName {
+    font-family: "Segoe UI Semibold";
+}
+
+form td
+{
+    /*text-align: right;*/
+}
+
+fieldset input:not([type=submit]):not([type=file]):not(#hours):not(#startdate):not(#enddate), 
+fieldset textarea, 
+fieldset select
+{
+    min-width: 350px;
+    width: 100%
+}
+
+#menuEmailLoginForm fieldset input:not([type=submit]):not([type=file]):not(#hours):not(#startdate):not(#enddate), 
+#menuEmailLoginForm fieldset textarea, 
+#menuEmailLoginForm fieldset select
+{
+    min-width: 100px;
+}
+
+#menuEmailLoginForm input[type=button],
+#menuEmailLoginForm input[type=submit]
+{
+    padding: 7px 15px;
+}
+
+textarea
+{
+    height: 80px;
+}
+
+/* tabulky a formulare */
+
+table { font-size: 14px; }
+
+table.zakladni { border-spacing: 1px; width: 100%; /*border-collapse: collapse;*/ /*margin: 10px;*/ }
+table.zakladni th { border: none; font-weight: normal; }
+table.zakladni td {  /*border-top: solid 1px #999999; border-bottom: solid 1px #999999;*/ }
+table.zakladni th, table.zakladni td { padding: 6px; }
+table.zakladni th { background-color: #2586d7; color: #FFF; padding-top: 8px; padding-bottom: 8px; }
+table.zakladni tr { background-color: #EEE; }
+table.zakladni tr:nth-child(even) { background-color: #CCC; }
+table.zakladni tr:hover { background-color: #ff9900; }
+
+table.vnejsi { border-spacing: 1px; min-width: 400px; }
+table.vnejsi th { border: none; font-weight: normal; background-color: #2586d7; color: #FFF; padding: 8px; }
+table.vnejsi tr { background-color: #EEE; }
+table.vnejsi table.zakladni { width: 100%; }
+
+table.radkovana { border-collapse: collapse; margin: 10px; }
+table.radkovana td { border-bottom: solid 1px black; padding: 4px; }
+table.radkovana tr:hover { background-color: #ff9900; }
+
+table td.label { font-family: "Segoe UI"; font-weight: bold; }
+
+table td.name { font-weight: bold; }
+table td.center { text-align: center; }
+
+table.admin { font-size: 12px; }
+
+table tr.hiddenMessage {
+    color: #999;
+}
+
+table tr.notImportantRowHide {
+    display: none;
+}
+
+.errorHeader {
+    color: #FF0000;
+    font-size: 1.2em;
+}
+
+
+form fieldset {
+    border: 1px #2175bc solid;
+    background-color: #EEE;
+    margin: 0;
+}
+
+form fieldset legend {
+    font-size: 1.7em;
+    padding: 5px;
+}
+
+form fieldset table {
+    width: 100%;
+}
+
+form th {
+    font-weight: normal;
+    text-align: right;
+}
+
+.bigBlueBox {
+    padding: 0px;
+    background-color: #2175bc;
+    margin-right: 15px;
+    display: inline-block;
+    min-width: 400px;
+}
+
+.bigBlueBox.padded {
+    padding-top: 10px;
+    padding: 10px;
+}
+
+.bigBlueBox .title {
+    font-size: 1.7em;
+    color: #FFF;
+    padding-left: 10px;
+}
+
+.bigBlueBox .title a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.bigBlueBox .title a:hover {
+    color: #ff9900;
+}
+
+.bigBlueBox.padded .title {
+    padding-left: 0px;
+    margin-bottom: 5px;
+}
+
+.bigBlueBox .title img {
+    vertical-align: bottom;
+}
+
+.bigBlueBox .subTitle {
+    padding-left: 50px;
+    max-width: 550px;
+    font-size: 14px;
+    color: #FFF;
+}
+
+.bigBlueBox .filter {
+    float: right;
+    font-size: 15px;
+    color: #FFF;
+}
+
+.bigBlueBox .filter form {
+    margin-bottom: 0;
+}
+
+.companyInfo,
+.companyMessages
+{
+    margin-right: 15px;
+    max-width: 600px;
+}
+
+.companyActions {
+    max-width: 1000px;
+}
+
+.companyMessages .companyMessageSendNew {
+    float: right;
+    margin-right: 10px;
+    width: 32px;
+    height: 32px;
+    background-image: url('../img/messages-new-32.png');
+}
+
+.companyMessages .companyMessageSendNew:hover {
+    background-image: url('../img/messages-new-32-hover.png');
+}
+
+.companyMessages .companyMessageHide {
+    float: right;
+    margin-right: 10px;
+    width: 32px;
+    height: 32px;
+    background-image: url('../img/delete-32.png');
+}
+
+.companyMessages .companyMessageHide:hover {
+    background-image: url('../img/delete-32-hover.png');
+}
+
+.companyDocuments .companyDocumentAddNew {
+    float: left;
+    margin-right: 10px;
+    width: 32px;
+    height: 32px;
+    background-image: url('../img/plus-32.png');
+}
+
+.companyDocuments .companyDocumentAddNew:hover {
+    background-image: url('../img/plus-32-hover.png');
+}
+
+.editImg {
+    float: right;
+    margin-right: 10px;
+    width: 32px;
+    height: 32px;
+    background-image: url('../img/edit-32.png');
+}
+
+.editImg:hover {
+    background-image: url('../img/edit-32-hover.png');
+}
+
+
+input[type=button],
+input[type=submit]
+{
+    background: #2175bc;
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    padding: 7px 30px;
+    cursor: pointer;
+}
+
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled,
+input[type="file"]:disabled
+{
+    color: #999;
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background-color: #ff9900;
+}
+
+select.filterCompany {
+    max-width: 200px;
+}
+
+
+.floatLeft {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.paginator {
+    text-align: center;
+    font-weight: bold;
+}
+
+.forceInline {
+    /* white-space: nowrap; */
+}
+
+.forceInlineChild {	
+    display:inline-block;
+    white-space: normal;
+}
+
+table.bigBlueTable {
+    border-spacing: 0;
+} 
+
+table.bigBlueTable td {
+    border-collapse: collapse;
+    border-bottom: 1px solid #FFF;
+    color: #FFF;
+}
+
+table td.bigBlueTableFirstLine {
+    border-collapse: collapse;
+    border-bottom: 2px solid #FFF;
+    color: #FFF;
+    font-weight: bolder;
+}
+
+.footer {
+    background-color: #2175bc;
+    color: white;
+    padding: 10px;
+}

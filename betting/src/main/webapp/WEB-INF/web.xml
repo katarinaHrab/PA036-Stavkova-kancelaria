@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <listener>
+        <description>aktivace Springu při startu aplikace</description>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <description>umístění konfiguračního souboru pro Spring</description>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+    </context-param>
+    
+    <!-- JSTL -->
+    <context-param>
+        <description>JSTL tagy použijí lokalizované texty ze stejného zdroje jako Stripes tagy</description>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>StripesResources</param-value>
+    </context-param>
+    
+    <!-- Stripes -->
+    <filter>
+        <description>hlavní místo konfigurace Stripes</description>
+        <display-name>Stripes Filter</display-name>
+        <filter-name>StripesFilter</filter-name>
+        <filter-class>net.sourceforge.stripes.controller.StripesFilter</filter-class>
+        <init-param>
+            <description>kde Stripes hledá ActionBeans</description>
+            <param-name>ActionResolver.Packages</param-name>
+            <param-value>cz.muni.fi.pa036.betting.web</param-value>
+        </init-param>
+        <init-param>
+            <description>jaká locale a kódování aplikace podporuje</description>
+            <param-name>LocalePicker.Locales</param-name>
+            <param-value>cs:utf-8,en:utf-8</param-value>
+        </init-param>
+        <init-param>
+            <description>propojení Stripes se Spring</description>
+            <param-name>Interceptor.Classes</param-name>
+            <param-value>
+                cz.muni.fi.pa036.betting.web.SecurityInterceptor,
+                net.sourceforge.stripes.integration.spring.SpringInterceptor
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>Extension.Packages</param-name>
+            <param-value>cz.muni.fi.pa036.betting.extensions</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ExceptionHandler.Class</param-name>
+            <param-value>cz.muni.fi.pa036.betting.web.BettingExceptionHandler</param-value>
+        </init-param>
+    </filter>
+    
+    <welcome-file-list>
+   	    <welcome-file>index</welcome-file>
+    </welcome-file-list>
+    
+    <security-constraint>
+	    <display-name>JSP Security Constraint</display-name>
+	    <web-resource-collection>
+	        <web-resource-name>Protected Area</web-resource-name>      
+	        <url-pattern>*.do</url-pattern>
+	        <url-pattern>*.jsp</url-pattern>
+	    </web-resource-collection>
+	    <auth-constraint>      
+	        <role-name>*</role-name>
+	    </auth-constraint>
+	</security-constraint>
+        
+
+    <filter>
+        <description>dynamicky mapuje URL na ActionBeans</description>
+        <display-name>Stripes Dynamic Mapping Filter</display-name>
+        <filter-name>DynamicMappingFilter</filter-name>
+        <filter-class>net.sourceforge.stripes.controller.DynamicMappingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DynamicMappingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+
+</web-app>

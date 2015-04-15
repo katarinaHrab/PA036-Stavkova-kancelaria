@@ -149,8 +149,10 @@ public class User  implements java.io.Serializable {
         this.userRoles = userRoles;
     }
 
-
-
+    // TODO: check the rights
+    public boolean isAdmin() {
+        return false;
+    }
 
 }
 
