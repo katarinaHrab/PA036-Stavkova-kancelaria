@@ -1,13 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<!-- Generated 18.4.2015 11:47:25 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="cz.muni.fi.pa036.betting.model.UserFavoriteSport" table="user_favorite_sport" schema="public" optimistic-lock="version">
         <composite-id name="id" class="cz.muni.fi.pa036.betting.model.UserFavoriteSportId">
-            <key-property name="id" type="int">
-                <column name="id" />
-            </key-property>
             <key-property name="userid" type="int">
                 <column name="userid" />
             </key-property>

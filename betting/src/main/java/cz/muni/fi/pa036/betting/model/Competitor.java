@@ -1,5 +1,5 @@
 package cz.muni.fi.pa036.betting.model;
-// Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1
+// Generated 18.4.2015 11:47:24 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,6 +16,7 @@ public class Competitor  implements java.io.Serializable {
      private Sport sport;
      private String name;
      private Set<EventCompetitor> eventCompetitors = new HashSet<EventCompetitor>(0);
+     private Set<TicketEvent> ticketEvents = new HashSet<TicketEvent>(0);
 
     public Competitor() {
     }
@@ -27,12 +28,13 @@ public class Competitor  implements java.io.Serializable {
         this.sport = sport;
         this.name = name;
     }
-    public Competitor(int id, Country country, Sport sport, String name, Set<EventCompetitor> eventCompetitors) {
+    public Competitor(int id, Country country, Sport sport, String name, Set<EventCompetitor> eventCompetitors, Set<TicketEvent> ticketEvents) {
        this.id = id;
        this.country = country;
        this.sport = sport;
        this.name = name;
        this.eventCompetitors = eventCompetitors;
+       this.ticketEvents = ticketEvents;
     }
    
     public int getId() {
@@ -69,6 +71,13 @@ public class Competitor  implements java.io.Serializable {
     
     public void setEventCompetitors(Set<EventCompetitor> eventCompetitors) {
         this.eventCompetitors = eventCompetitors;
+    }
+    public Set<TicketEvent> getTicketEvents() {
+        return this.ticketEvents;
+    }
+    
+    public void setTicketEvents(Set<TicketEvent> ticketEvents) {
+        this.ticketEvents = ticketEvents;
     }
 
 

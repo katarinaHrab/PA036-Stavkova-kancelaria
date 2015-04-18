@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<!-- Generated 18.4.2015 11:47:25 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="cz.muni.fi.pa036.betting.model.Event" table="event" schema="public" optimistic-lock="version">
         <id name="id" type="int">
@@ -29,7 +29,7 @@
             </key>
             <one-to-many class="cz.muni.fi.pa036.betting.model.TicketEvent" />
         </set>
-        <set name="eventCompetitors" table="event_competitor" inverse="true" lazy="true" fetch="select">
+        <set name="eventCompetitors" table="event_competitor" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="eventid" not-null="true" />
             </key>

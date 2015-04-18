@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<!-- Generated 18.4.2015 11:47:25 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="cz.muni.fi.pa036.betting.model.User" table="user" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
         </id>
-        <property name="userAccountid" type="int">
-            <column name="user_accountid" not-null="true" />
-        </property>
         <property name="login" type="string">
             <column name="login" length="50" not-null="true" unique="true" />
         </property>
@@ -38,23 +35,27 @@
             </key>
             <one-to-many class="cz.muni.fi.pa036.betting.model.Ticket" />
         </set>
-        <set name="userFavoriteSports" table="user_favorite_sport" inverse="true" lazy="true" fetch="select">
+        <set name="userFavoriteSports" table="user_favorite_sport" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="userid" not-null="true" />
             </key>
             <one-to-many class="cz.muni.fi.pa036.betting.model.UserFavoriteSport" />
         </set>
-        <set name="contactUsers" table="contact_user" inverse="true" lazy="true" fetch="select">
+        <set name="contacts" table="contact_user" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="userid" not-null="true" />
             </key>
-            <one-to-many class="cz.muni.fi.pa036.betting.model.ContactUser" />
+            <many-to-many entity-name="cz.muni.fi.pa036.betting.model.Contact">
+                <column name="contactid" not-null="true" />
+            </many-to-many>
         </set>
-        <set name="userRoles" table="user_role" inverse="true" lazy="true" fetch="select">
+        <set name="roles" table="user_role" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="userid" not-null="true" />
             </key>
-            <one-to-many class="cz.muni.fi.pa036.betting.model.UserRole" />
+            <many-to-many entity-name="cz.muni.fi.pa036.betting.model.Role">
+                <column name="roleid" not-null="true" />
+            </many-to-many>
         </set>
     </class>
 </hibernate-mapping>

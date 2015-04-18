@@ -1,5 +1,5 @@
 package cz.muni.fi.pa036.betting.model;
-// Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1
+// Generated 18.4.2015 11:47:24 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,7 +14,7 @@ public class Contact  implements java.io.Serializable {
      private int id;
      private String type;
      private String value;
-     private Set<ContactUser> contactUsers = new HashSet<ContactUser>(0);
+     private Set<User> users = new HashSet<User>(0);
 
     public Contact() {
     }
@@ -25,11 +25,11 @@ public class Contact  implements java.io.Serializable {
         this.type = type;
         this.value = value;
     }
-    public Contact(int id, String type, String value, Set<ContactUser> contactUsers) {
+    public Contact(int id, String type, String value, Set<User> users) {
        this.id = id;
        this.type = type;
        this.value = value;
-       this.contactUsers = contactUsers;
+       this.users = users;
     }
    
     public int getId() {
@@ -53,12 +53,12 @@ public class Contact  implements java.io.Serializable {
     public void setValue(String value) {
         this.value = value;
     }
-    public Set<ContactUser> getContactUsers() {
-        return this.contactUsers;
+    public Set<User> getUsers() {
+        return this.users;
     }
     
-    public void setContactUsers(Set<ContactUser> contactUsers) {
-        this.contactUsers = contactUsers;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
 

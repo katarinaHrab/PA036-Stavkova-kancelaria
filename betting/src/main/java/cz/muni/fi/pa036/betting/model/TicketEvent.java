@@ -1,5 +1,5 @@
 package cz.muni.fi.pa036.betting.model;
-// Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1
+// Generated 18.4.2015 11:47:24 by Hibernate Tools 4.3.1
 
 
 
@@ -10,19 +10,26 @@ public class TicketEvent  implements java.io.Serializable {
 
 
      private TicketEventId id;
+     private Competitor competitor;
      private Event event;
      private Ticket ticket;
-     private int betoption;
      private double betvalue;
 
     public TicketEvent() {
     }
 
-    public TicketEvent(TicketEventId id, Event event, Ticket ticket, int betoption, double betvalue) {
+	
+    public TicketEvent(TicketEventId id, Event event, Ticket ticket, double betvalue) {
+        this.id = id;
+        this.event = event;
+        this.ticket = ticket;
+        this.betvalue = betvalue;
+    }
+    public TicketEvent(TicketEventId id, Competitor competitor, Event event, Ticket ticket, double betvalue) {
        this.id = id;
+       this.competitor = competitor;
        this.event = event;
        this.ticket = ticket;
-       this.betoption = betoption;
        this.betvalue = betvalue;
     }
    
@@ -32,6 +39,13 @@ public class TicketEvent  implements java.io.Serializable {
     
     public void setId(TicketEventId id) {
         this.id = id;
+    }
+    public Competitor getCompetitor() {
+        return this.competitor;
+    }
+    
+    public void setCompetitor(Competitor competitor) {
+        this.competitor = competitor;
     }
     public Event getEvent() {
         return this.event;
@@ -46,13 +60,6 @@ public class TicketEvent  implements java.io.Serializable {
     
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
-    }
-    public int getBetoption() {
-        return this.betoption;
-    }
-    
-    public void setBetoption(int betoption) {
-        this.betoption = betoption;
     }
     public double getBetvalue() {
         return this.betvalue;

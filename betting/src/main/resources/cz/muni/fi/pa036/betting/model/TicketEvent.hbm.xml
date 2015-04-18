@@ -1,13 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1 -->
+<!-- Generated 18.4.2015 11:47:25 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="cz.muni.fi.pa036.betting.model.TicketEvent" table="ticket_event" schema="public" optimistic-lock="version">
         <composite-id name="id" class="cz.muni.fi.pa036.betting.model.TicketEventId">
-            <key-property name="id" type="int">
-                <column name="id" />
-            </key-property>
             <key-property name="ticketid" type="int">
                 <column name="ticketid" />
             </key-property>
@@ -15,15 +12,15 @@
                 <column name="eventid" />
             </key-property>
         </composite-id>
+        <many-to-one name="competitor" class="cz.muni.fi.pa036.betting.model.Competitor" fetch="select">
+            <column name="competitorid" />
+        </many-to-one>
         <many-to-one name="event" class="cz.muni.fi.pa036.betting.model.Event" update="false" insert="false" fetch="select">
             <column name="eventid" not-null="true" />
         </many-to-one>
         <many-to-one name="ticket" class="cz.muni.fi.pa036.betting.model.Ticket" update="false" insert="false" fetch="select">
             <column name="ticketid" not-null="true" />
         </many-to-one>
-        <property name="betoption" type="int">
-            <column name="betoption" not-null="true" />
-        </property>
         <property name="betvalue" type="double">
             <column name="betvalue" precision="17" scale="17" not-null="true" />
         </property>

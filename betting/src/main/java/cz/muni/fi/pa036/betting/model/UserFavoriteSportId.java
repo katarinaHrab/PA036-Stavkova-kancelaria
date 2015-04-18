@@ -1,5 +1,5 @@
 package cz.muni.fi.pa036.betting.model;
-// Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1
+// Generated 18.4.2015 11:47:24 by Hibernate Tools 4.3.1
 
 
 
@@ -9,26 +9,17 @@ package cz.muni.fi.pa036.betting.model;
 public class UserFavoriteSportId  implements java.io.Serializable {
 
 
-     private int id;
      private int userid;
      private int sportid;
 
     public UserFavoriteSportId() {
     }
 
-    public UserFavoriteSportId(int id, int userid, int sportid) {
-       this.id = id;
+    public UserFavoriteSportId(int userid, int sportid) {
        this.userid = userid;
        this.sportid = sportid;
     }
    
-    public int getId() {
-        return this.id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
     public int getUserid() {
         return this.userid;
     }
@@ -51,15 +42,13 @@ public class UserFavoriteSportId  implements java.io.Serializable {
 		 if ( !(other instanceof UserFavoriteSportId) ) return false;
 		 UserFavoriteSportId castOther = ( UserFavoriteSportId ) other; 
          
-		 return (this.getId()==castOther.getId())
- && (this.getUserid()==castOther.getUserid())
+		 return (this.getUserid()==castOther.getUserid())
  && (this.getSportid()==castOther.getSportid());
    }
    
    public int hashCode() {
          int result = 17;
          
-         result = 37 * result + this.getId();
          result = 37 * result + this.getUserid();
          result = 37 * result + this.getSportid();
          return result;

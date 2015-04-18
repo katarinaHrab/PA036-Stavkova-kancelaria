@@ -61,7 +61,7 @@ public class BaseActionBean implements ActionBean {
 
     public boolean getIsUserAdmin() {
         return (getLoggedUser() != null)
-                && (getLoggedUser().isAdmin());
+                && (getLoggedUser().getIsUserAdmin());
     }
 
     public String getURLWithoutContextPath() {

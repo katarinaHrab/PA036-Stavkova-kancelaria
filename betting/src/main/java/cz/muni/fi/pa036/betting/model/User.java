@@ -1,5 +1,5 @@
 package cz.muni.fi.pa036.betting.model;
-// Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1
+// Generated 18.4.2015 11:47:24 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,7 +13,6 @@ public class User  implements java.io.Serializable {
 
 
      private int id;
-     private int userAccountid;
      private String login;
      private String password;
      private String name;
@@ -23,16 +22,15 @@ public class User  implements java.io.Serializable {
      private double balance;
      private Set<Ticket> tickets = new HashSet<Ticket>(0);
      private Set<UserFavoriteSport> userFavoriteSports = new HashSet<UserFavoriteSport>(0);
-     private Set<ContactUser> contactUsers = new HashSet<ContactUser>(0);
-     private Set<UserRole> userRoles = new HashSet<UserRole>(0);
+     private Set<Contact> contacts = new HashSet<Contact>(0);
+     private Set<Role> roles = new HashSet<Role>(0);
 
     public User() {
     }
 
 	
-    public User(int id, int userAccountid, String login, String password, String name, String surname, Date dateofbirth, Date datelastlogin, double balance) {
+    public User(int id, String login, String password, String name, String surname, Date dateofbirth, Date datelastlogin, double balance) {
         this.id = id;
-        this.userAccountid = userAccountid;
         this.login = login;
         this.password = password;
         this.name = name;
@@ -41,9 +39,8 @@ public class User  implements java.io.Serializable {
         this.datelastlogin = datelastlogin;
         this.balance = balance;
     }
-    public User(int id, int userAccountid, String login, String password, String name, String surname, Date dateofbirth, Date datelastlogin, double balance, Set<Ticket> tickets, Set<UserFavoriteSport> userFavoriteSports, Set<ContactUser> contactUsers, Set<UserRole> userRoles) {
+    public User(int id, String login, String password, String name, String surname, Date dateofbirth, Date datelastlogin, double balance, Set<Ticket> tickets, Set<UserFavoriteSport> userFavoriteSports, Set<Contact> contacts, Set<Role> roles) {
        this.id = id;
-       this.userAccountid = userAccountid;
        this.login = login;
        this.password = password;
        this.name = name;
@@ -53,8 +50,8 @@ public class User  implements java.io.Serializable {
        this.balance = balance;
        this.tickets = tickets;
        this.userFavoriteSports = userFavoriteSports;
-       this.contactUsers = contactUsers;
-       this.userRoles = userRoles;
+       this.contacts = contacts;
+       this.roles = roles;
     }
    
     public int getId() {
@@ -63,13 +60,6 @@ public class User  implements java.io.Serializable {
     
     public void setId(int id) {
         this.id = id;
-    }
-    public int getUserAccountid() {
-        return this.userAccountid;
-    }
-    
-    public void setUserAccountid(int userAccountid) {
-        this.userAccountid = userAccountid;
     }
     public String getLogin() {
         return this.login;
@@ -134,24 +124,24 @@ public class User  implements java.io.Serializable {
     public void setUserFavoriteSports(Set<UserFavoriteSport> userFavoriteSports) {
         this.userFavoriteSports = userFavoriteSports;
     }
-    public Set<ContactUser> getContactUsers() {
-        return this.contactUsers;
+    public Set<Contact> getContacts() {
+        return this.contacts;
     }
     
-    public void setContactUsers(Set<ContactUser> contactUsers) {
-        this.contactUsers = contactUsers;
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
     }
-    public Set<UserRole> getUserRoles() {
-        return this.userRoles;
+    public Set<Role> getRoles() {
+        return this.roles;
     }
     
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    // TODO: check the rights
-    public boolean isAdmin() {
-        return false;
+
+    public boolean getIsUserAdmin() {
+        return (roles != null && roles.contains(Role.ROLE_SUPERADMIN));
     }
 
 }

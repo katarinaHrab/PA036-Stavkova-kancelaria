@@ -1,5 +1,5 @@
 package cz.muni.fi.pa036.betting.model;
-// Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1
+// Generated 18.4.2015 11:47:24 by Hibernate Tools 4.3.1
 
 
 
@@ -9,26 +9,17 @@ package cz.muni.fi.pa036.betting.model;
 public class TicketEventId  implements java.io.Serializable {
 
 
-     private int id;
      private int ticketid;
      private int eventid;
 
     public TicketEventId() {
     }
 
-    public TicketEventId(int id, int ticketid, int eventid) {
-       this.id = id;
+    public TicketEventId(int ticketid, int eventid) {
        this.ticketid = ticketid;
        this.eventid = eventid;
     }
    
-    public int getId() {
-        return this.id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
     public int getTicketid() {
         return this.ticketid;
     }
@@ -51,15 +42,13 @@ public class TicketEventId  implements java.io.Serializable {
 		 if ( !(other instanceof TicketEventId) ) return false;
 		 TicketEventId castOther = ( TicketEventId ) other; 
          
-		 return (this.getId()==castOther.getId())
- && (this.getTicketid()==castOther.getTicketid())
+		 return (this.getTicketid()==castOther.getTicketid())
  && (this.getEventid()==castOther.getEventid());
    }
    
    public int hashCode() {
          int result = 17;
          
-         result = 37 * result + this.getId();
          result = 37 * result + this.getTicketid();
          result = 37 * result + this.getEventid();
          return result;

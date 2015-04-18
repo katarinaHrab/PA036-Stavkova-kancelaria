@@ -28,7 +28,7 @@ h1 { text-align: center; text-decoration: underline; text-shadow: aquamarine; }
 
 #topPanel img.logo {
     float: left;
-    padding: 3px 3px 3px 40px;
+    padding: 3px 3px 3px 3px;
 }
 
 #topPanel h1 {

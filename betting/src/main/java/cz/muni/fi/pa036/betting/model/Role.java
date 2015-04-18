@@ -1,5 +1,5 @@
 package cz.muni.fi.pa036.betting.model;
-// Generated 14.4.2015 11:34:11 by Hibernate Tools 4.3.1
+// Generated 18.4.2015 11:47:24 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -10,10 +10,11 @@ import java.util.Set;
  */
 public class Role  implements java.io.Serializable {
 
+    public static final Role ROLE_SUPERADMIN = new Role(1, "Superadmin");
 
      private int id;
      private String name;
-     private Set<UserRole> userRoles = new HashSet<UserRole>(0);
+     private Set<User> users = new HashSet<User>(0);
 
     public Role() {
     }
@@ -23,10 +24,10 @@ public class Role  implements java.io.Serializable {
         this.id = id;
         this.name = name;
     }
-    public Role(int id, String name, Set<UserRole> userRoles) {
+    public Role(int id, String name, Set<User> users) {
        this.id = id;
        this.name = name;
-       this.userRoles = userRoles;
+       this.users = users;
     }
    
     public int getId() {
@@ -43,16 +44,35 @@ public class Role  implements java.io.Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public Set<UserRole> getUserRoles() {
-        return this.userRoles;
+    public Set<User> getUsers() {
+        return this.users;
     }
     
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + this.id;
+        return hash;
+    }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Role other = (Role) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
 
 }
 

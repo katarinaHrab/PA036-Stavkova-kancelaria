@@ -30,7 +30,8 @@
         </head>
         <body>
             <div id="topPanel">
-                Bet@FI
+                <img src="${pageContext.request.contextPath}/img/bet-fi-logo.png"
+                     class="logo" alt="Bet@FI" title="Bet@FI" />
                 <div class="userinfo">
                     <c:choose>
                         <c:when test="${loggedIn == true}">
@@ -61,7 +62,7 @@
                     <c:choose>
                         <c:when test="${loggedIn == true}">
                             <c:choose>
-                                <c:when test="${user.isUserAdmin == true || user.isUserAgent == true}">
+                                <c:when test="${user.isUserAdmin == true}">
                                     <li>
                                         <s:link href="/index">Admin menu</s:link>
                                         <ul>
