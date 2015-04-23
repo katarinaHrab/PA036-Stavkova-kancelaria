@@ -1,8 +1,8 @@
 package cz.muni.fi.pa036.betting.dao;
 
 import cz.muni.fi.pa036.betting.model.Competitor;
-import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *

@@ -5,10 +5,16 @@
  */
 package cz.muni.fi.pa036.betting.dao;
 
+import cz.muni.fi.pa036.betting.model.Event;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author Ja
  */
-public class EventDAOImpl {
+@Repository("eventDAO")
+@Transactional
+public class EventDAOImpl extends BaseDAOImpl<Event, Integer> implements EventDAO{
     
 }

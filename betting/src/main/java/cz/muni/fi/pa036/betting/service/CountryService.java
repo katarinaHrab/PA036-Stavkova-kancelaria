@@ -5,10 +5,12 @@
  */
 package cz.muni.fi.pa036.betting.service;
 
+import cz.muni.fi.pa036.betting.model.Country;
+
 /**
  *
  * @author Ja
  */
-public interface CountryService {
+public interface CountryService extends GenericService<Country, Integer>{
     
 }
