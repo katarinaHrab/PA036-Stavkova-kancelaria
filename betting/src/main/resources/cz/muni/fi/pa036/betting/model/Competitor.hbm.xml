@@ -6,12 +6,12 @@
     <class name="cz.muni.fi.pa036.betting.model.Competitor" table="competitor" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="country" class="cz.muni.fi.pa036.betting.model.Country" fetch="select">
+        <many-to-one name="country" class="cz.muni.fi.pa036.betting.model.Country" fetch="join">
             <column name="countryid" not-null="true" />
         </many-to-one>
-        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" fetch="select">
+        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" fetch="join">
             <column name="sportid" not-null="true" />
         </many-to-one>
         <property name="name" type="string">

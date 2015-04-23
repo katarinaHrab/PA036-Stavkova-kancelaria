@@ -64,6 +64,12 @@
                             <c:choose>
                                 <c:when test="${user.isUserAdmin == true}">
                                     <li>
+                                        <s:link href="/competitor/">Hráči</s:link>
+                                        <ul>
+                                            <li><s:link href="/competitor/add">Přidat</s:link></li>
+                                        </ul>
+                                    </li>
+                                    <li>
                                         <s:link href="/index">Admin menu</s:link>
                                         <ul>
                                             <li><s:link href="/index/1">menu item</s:link></li>
