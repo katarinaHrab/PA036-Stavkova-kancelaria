@@ -6,7 +6,7 @@
     <class name="cz.muni.fi.pa036.betting.model.Sport" table="sport" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="kindofsport" type="string">
             <column name="kindofsport" length="50" not-null="true" />

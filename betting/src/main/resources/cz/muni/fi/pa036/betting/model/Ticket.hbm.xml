@@ -6,9 +6,9 @@
     <class name="cz.muni.fi.pa036.betting.model.Ticket" table="ticket" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="status" class="cz.muni.fi.pa036.betting.model.Status" fetch="select">
+        <many-to-one name="status" class="cz.muni.fi.pa036.betting.model.Status" fetch="join">
             <column name="statusid" not-null="true" />
         </many-to-one>
         <many-to-one name="user" class="cz.muni.fi.pa036.betting.model.User" fetch="select">

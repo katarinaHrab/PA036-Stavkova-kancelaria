@@ -22,12 +22,6 @@ public class SecurityInterceptor implements Interceptor {
         if (ctx.getActionBean().getClass().isAnnotationPresent(Annotations.DoesNotRequireLogin.class)) {
             return resolution;
         }
-return null;
-        /*if (ctx.getActionBean().getClass().equals(UsersActionBean.class)
-                && (ctx.getActionBeanContext().getEventName().equals("emailLogin")
-                || ctx.getActionBeanContext().getEventName().equals("emailLoginAction"))) {
-            return resolution;
-        }
 
         if (isLoggedIn(ctx.getActionBeanContext())) {
             return resolution;
@@ -46,7 +40,7 @@ return null;
             } else {
                 return new RedirectResolution(SecurityActionBean.class, "login");
             }
-        }*/
+        }
     }
 
     private boolean isLoggedIn(ActionBeanContext ctx) {
