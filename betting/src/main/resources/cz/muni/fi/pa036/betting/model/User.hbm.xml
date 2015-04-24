@@ -6,7 +6,7 @@
     <class name="cz.muni.fi.pa036.betting.model.User" table="user" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="login" type="string">
             <column name="login" length="50" not-null="true" unique="true" />
