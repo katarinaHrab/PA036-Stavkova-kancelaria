@@ -64,15 +64,21 @@
                             <c:choose>
                                 <c:when test="${user.isUserAdmin == true}">
                                     <li>
-                                        <s:link href="/competitor/">Hráči</s:link>
+                                        <s:link href="/competitor/">Competitors</s:link>
                                         <ul>
-                                            <li><s:link href="/competitor/add">Přidat</s:link></li>
+                                            <li><s:link href="/competitor/add">Add</s:link></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <s:link href="/league/">Leagues</s:link>
                                         <ul>
                                             <li><s:link href="/league/add">Add</s:link></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <s:link href="/sport/">Sports</s:link>
+                                        <ul>
+                                            <li><s:link href="/sport/add">Add</s:link></li>
                                         </ul>
                                     </li>
                                     <li>

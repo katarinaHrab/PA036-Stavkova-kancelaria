@@ -120,7 +120,7 @@ public class CompetitorActionBean extends BaseActionBean {
             competitorService.delete(competitor);
             
             getContext().getMessages().add(new SimpleMessage(
-                    "Hráč byl smazán.", competitor.getName()));
+                    "Competitor was deleted.", competitor.getName()));
             return new RedirectResolution(this.getClass(), "all");
         } else {
             log.warn(getLoggedUser().getLogin()
