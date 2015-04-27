@@ -11,7 +11,7 @@
         <many-to-one name="country" class="cz.muni.fi.pa036.betting.model.Country" fetch="join">
             <column name="countryid" not-null="true" />
         </many-to-one>
-        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" fetch="select">
+        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" fetch="join">
             <column name="sportid" not-null="true" />
         </many-to-one>
         <property name="name" type="string">
