@@ -8,8 +8,6 @@ GRANT CONNECT ON DATABASE pa036 to pa036;
 GRANT USAGE ON SCHEMA public to pa036; 
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO pa036;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO pa036;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO pa036;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO pa036;
 
 
 CREATE TABLE "user" (Id  SERIAL NOT NULL, Login varchar(50) NOT NULL UNIQUE, Password varchar(100) NOT NULL, Name varchar(50) NOT NULL, Surname varchar(50) NOT NULL, DateOfBirth date NOT NULL, DateLastLogin date NOT NULL, Balance float8 NOT NULL, PRIMARY KEY (Id));
@@ -47,6 +45,10 @@ ALTER TABLE Competitor ADD CONSTRAINT FKCompetitor375485 FOREIGN KEY (SportId) R
 ALTER TABLE Ticket_Event ADD CONSTRAINT FKTicket_Eve482699 FOREIGN KEY (CompetitorId) REFERENCES Competitor (Id);
 
 
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO pa036;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO pa036;
+
+
 INSERT INTO "user"(
             id, login, password, name, surname, dateofbirth, 
             datelastlogin, balance)
@@ -60,3 +62,17 @@ INSERT INTO Role(
 INSERT INTO User_role(
             userid, roleid)
     VALUES (1, 1);
+    
+INSERT INTO country(
+            id, name)
+    VALUES (1, 'Cesko');
+INSERT INTO country(
+            id, name)
+    VALUES (2, 'Slovensko');
+
+INSERT INTO sport(
+            id, kindofsport)
+    VALUES (1, 'Fotbal');
+INSERT INTO sport(
+            id, kindofsport)
+    VALUES (2, 'Hokej');
