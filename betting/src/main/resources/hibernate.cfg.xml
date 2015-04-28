@@ -2,16 +2,16 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <!--    <property name="hibernate.connection.driver_class">${jdbc.driverClassName}</property>
+    <property name="hibernate.connection.driver_class">${jdbc.driverClassName}</property>
     <property name="hibernate.connection.url">${jdbc.url}</property>
     <property name="hibernate.connection.username">${jdbc.usename}</property>
     <property name="hibernate.connection.password">${jdbc.password}</property>
-    <property name="hibernate.dialect">${jdbc.dialect}</property>-->
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.dialect">${jdbc.dialect}</property>
+    <!--    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost/pa036</property>
     <property name="hibernate.connection.username">pa036</property>
-    <property name="hibernate.connection.password">pa036</property>
+    <property name="hibernate.connection.password">pa036</property>-->
     <mapping resource="cz/muni/fi/pa036/betting/model/Contact.hbm.xml"/>
     <mapping resource="cz/muni/fi/pa036/betting/model/Status.hbm.xml"/>
     <mapping resource="cz/muni/fi/pa036/betting/model/Sport.hbm.xml"/>
