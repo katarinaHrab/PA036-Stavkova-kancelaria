@@ -64,6 +64,14 @@
                             <c:choose>
                                 <c:when test="${user.isUserAdmin == true}">
                                     <li>
+                                        <s:link href="/event/">Events</s:link>
+                                        <ul>
+                                            <li><s:link href="/event/add">Add event</s:link></li>
+                                            <li><s:link href="/event/list">All events</s:link></li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li>
                                         <s:link href="/competitor/">Competitors</s:link>
                                         <ul>
                                             <li><s:link href="/competitor/add">Add</s:link></li>

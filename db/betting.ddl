@@ -12,7 +12,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO pa036;
 
 CREATE TABLE "user" (Id  SERIAL NOT NULL, Login varchar(50) NOT NULL UNIQUE, Password varchar(100) NOT NULL, Name varchar(50) NOT NULL, Surname varchar(50) NOT NULL, DateOfBirth date NOT NULL, DateLastLogin date NOT NULL, Balance float8 NOT NULL, PRIMARY KEY (Id));
 CREATE TABLE Role (Id  SERIAL NOT NULL, Name varchar(50) NOT NULL UNIQUE, PRIMARY KEY (Id));
-CREATE TABLE Event (Id  SERIAL NOT NULL, Name varchar(50) NOT NULL, Place varchar(50) NOT NULL, "Date" date NOT NULL, DrawOdds float8 NOT NULL, LeagueId int4 NOT NULL, PRIMARY KEY (Id));
+CREATE TABLE Event (Id  SERIAL NOT NULL, Name varchar(50) NOT NULL, Place varchar(50) NOT NULL, Date date NOT NULL, DrawOdds float8 NOT NULL, LeagueId int4 NOT NULL, PRIMARY KEY (Id));
 CREATE TABLE Ticket (Id  SERIAL NOT NULL, UserId int4 NOT NULL, DateOfCreated date NOT NULL, Deposit float8 NOT NULL, StatusId int4 NOT NULL, DateOfClosed date, PRIMARY KEY (Id));
 CREATE TABLE User_Role (UserId int4 NOT NULL, RoleId int4 NOT NULL, PRIMARY KEY (UserId, RoleId));
 CREATE TABLE Ticket_Event (TicketId int4 NOT NULL, EventId int4 NOT NULL, BetValue float8 NOT NULL, CompetitorId int4, PRIMARY KEY (TicketId, EventId));

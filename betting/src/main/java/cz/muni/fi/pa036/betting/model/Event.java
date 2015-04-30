@@ -101,8 +101,14 @@ public class Event  implements java.io.Serializable {
         this.eventCompetitors = eventCompetitors;
     }
 
-
-
+    @Override
+    public String toString(){
+        if(name == null){
+            return "league: " + league +" place: " + place + " date: " + date;
+        }else{
+            return name;
+        }
+    }
 
 }
 
