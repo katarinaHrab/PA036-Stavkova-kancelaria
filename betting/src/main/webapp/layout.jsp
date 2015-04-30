@@ -90,6 +90,12 @@
                                         </ul>
                                     </li>
                                     <li>
+                                        <s:link href="/country/">Countries</s:link>
+                                        <ul>
+                                            <li><s:link href="/country/add">Add</s:link></li>
+                                        </ul>
+                                    </li>
+                                    <li>
                                         <s:link href="/index">Admin menu</s:link>
                                         <ul>
                                             <li><s:link href="/index/1">menu item</s:link></li>
