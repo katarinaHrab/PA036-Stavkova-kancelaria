@@ -79,9 +79,6 @@
                                     </li>
                                     <li>
                                         <s:link href="/league/">Leagues</s:link>
-                                        <ul>
-                                            <li><s:link href="/league/add">Add</s:link></li>
-                                        </ul>
                                     </li>
                                     <li>
                                         <s:link href="/sport/">Sports</s:link>
@@ -95,26 +92,15 @@
                                             <li><s:link href="/country/add">Add</s:link></li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <s:link href="/index">Admin menu</s:link>
-                                        <ul>
-                                            <li><s:link href="/index/1">menu item</s:link></li>
-                                            <li><s:link href="/index/2">menu item</s:link></li>                            
-                                            <li><s:link href="/index/3">menu item</s:link></li>
-                                        </ul>
-                                    </li>                    
-                                    <li><s:link href="/index">Admin menu 2</s:link></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li>
-                                        <s:link href="/index">User menu</s:link>
+                                        <s:link href="/index">Overview of Leagues and Events</s:link>
                                         <ul>
                                             <li><s:link href="/index/1">menu item</s:link></li>
                                             <li><s:link href="/index/2">menu item</s:link></li>                            
-                                            <li><s:link href="/index/3">menu item</s:link></li>
                                         </ul>
-                                    </li>                    
-                                    <li><s:link href="/index">User menu 2</s:link></li>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
                         </c:when>
