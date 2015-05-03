@@ -6,7 +6,11 @@
 package cz.muni.fi.pa036.betting.web;
 
 import cz.muni.fi.pa036.betting.model.Event;
+import cz.muni.fi.pa036.betting.model.League;
 import cz.muni.fi.pa036.betting.service.EventService;
+import cz.muni.fi.pa036.betting.service.LeagueService;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -35,6 +39,9 @@ public class EventActionBean extends BaseActionBean{
     @SpringBean
     private EventService eventService;
     
+    @SpringBean
+    private LeagueService leagueService;
+    
     @ValidateNestedProperties(value =  { 
         @Validate(on = {"addAction", "save"}, field = "league.id", required = true),
         @Validate(on = {"addAction", "save"}, field = "name", maxlength = 255, required = true),
@@ -44,6 +51,8 @@ public class EventActionBean extends BaseActionBean{
     })
 
     private Event event;
+    private List<Event> allEventsByLeague;
+    private League league;
 
     public Event getEvent() {
         return event;
@@ -51,6 +60,14 @@ public class EventActionBean extends BaseActionBean{
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+    
+    public League getLeague() {
+        return league;
+    }
+    
+    public void setLeague(League league) {
+        this.league = league;
     }
     
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "detail"})
@@ -65,6 +82,14 @@ public class EventActionBean extends BaseActionBean{
     public List<Event> getAllEvents() {
         System.out.println("get all events funkcia");
         return eventService.findAll();
+    }
+    
+    public List<Event> getAllEventsByLeague() {
+        return allEventsByLeague;
+    }
+    
+    public List<League> getAllLeagues() {
+        return leagueService.findAll();
     }
     
     @DefaultHandler
@@ -151,4 +176,23 @@ public class EventActionBean extends BaseActionBean{
         }
     }
     
+    public Resolution listOfLeagues() {
+        log.debug("all()");
+        return new ForwardResolution("/event/listOfLeagues.jsp");
+    }
+    
+    public Resolution eventsByLeague() {
+        log.debug("eventsByLeague()");
+        String ids = getRequestParam("league.id");
+        
+        league = leagueService.findById(Integer.parseInt(ids));
+        allEventsByLeague = new ArrayList<Event>();
+      /*  for (Event e: getAllEvents()) {
+            if (e.getLeague().equals(league)) {
+                allEventsByLeague.add(e);
+            }
+        }*/
+        allEventsByLeague.add(new Event(3, league, "event1", "slovakia", new Date(22222222), 2.4));
+        return new ForwardResolution("/event/eventsOfLeague.jsp");
+    }
 }

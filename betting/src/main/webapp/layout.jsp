@@ -95,7 +95,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li>
-                                        <s:link href="/index">Overview of Leagues and Events</s:link>
+                                        <s:link href="/event/listOfLeagues">Overview of Leagues</s:link>
                                         <ul>
                                             <li><s:link href="/index/1">menu item</s:link></li>
                                             <li><s:link href="/index/2">menu item</s:link></li>                            
