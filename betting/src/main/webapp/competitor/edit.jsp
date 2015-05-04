@@ -3,7 +3,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" nadpis="Upravit hráče">
+<s:layout-render name="/layout.jsp" nadpis="Edit competitor">
     <s:layout-component name="telo">
         <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" var="actionBean"/>
         
@@ -14,7 +14,7 @@
                     <%@include file="form.jsp"%>
                     <tr>
                         <th></th>
-                        <td><s:submit name="save">Uložit změny</s:submit></td>
+                        <td><s:submit name="save">Save changes</s:submit></td>
                     </tr>
                 </table>
             </fieldset>

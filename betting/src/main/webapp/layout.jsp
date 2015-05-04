@@ -46,7 +46,7 @@
                         <c:when test="${loggedIn == true}">
                             <s:link href="/security/logout">
                                 <img src="${pageContext.request.contextPath}/img/user32.png" 
-                                     alt="odhlásit" title="odhlásit" />
+                                     alt="log out" title="log out" />
                             </s:link>
                             <br/>
                             <c:out value="${user.login}" />
@@ -54,10 +54,10 @@
                         <c:otherwise>
                             <s:link href="/security/login">
                                 <img src="${pageContext.request.contextPath}/img/user-logged-out32.png" 
-                                     alt="přihlásit" title="přihlásit" />
+                                     alt="log in" title="log in" />
                             </s:link>
                             <br/>
-                            <c:out value="Nepřihlášen." />
+                            <c:out value="Not logged in." />
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -74,26 +74,16 @@
                                 <c:when test="${user.isUserAdmin == true}">
                                     <li>
                                         <s:link href="/event/">Events</s:link>
-                                        <ul>
-                                            <li><s:link href="/event/add">Add event</s:link></li>
-                                            <li><s:link href="/event/list">All events</s:link></li>
-                                        </ul>
                                     </li>
                                     
                                     <li>
                                         <s:link href="/competitor/">Competitors</s:link>
-                                        <ul>
-                                            <li><s:link href="/competitor/add">Add</s:link></li>
-                                        </ul>
                                     </li>
                                     <li>
                                         <s:link href="/league/">Leagues</s:link>
                                     </li>
                                     <li>
                                         <s:link href="/sport/">Sports</s:link>
-                                        <ul>
-                                            <li><s:link href="/sport/add">Add</s:link></li>
-                                        </ul>
                                     </li>
                                     <li>
                                         <s:link href="/country/">Countries</s:link>

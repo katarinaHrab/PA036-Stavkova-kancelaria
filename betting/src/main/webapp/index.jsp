@@ -2,16 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
  
-<s:layout-render name="/layout.jsp" nadpis="Hlavní stránka">
+<s:layout-render name="/layout.jsp" nadpis="Index">
     <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.IndexActionBean" var="actionBean" />
     <s:layout-component name="telo">
         <c:choose>
             <c:when test="${empty(loggedIn) or loggedIn == false}">
-                <h2>Vítejte na úvodní stránce sázkového portálu</h2>
+                <h2>Welcome at betting portal index page</h2>
             </c:when>
             <c:otherwise>
-                <h2>Vítejte na úvodní stránce sázkového portálu</h2>
-                Jste přihlášen do systému.
+                <h2>Welcome at betting portal index page</h2>
+                You are logged in to the system.
             </c:otherwise>
         </c:choose>
     </s:layout-component>
