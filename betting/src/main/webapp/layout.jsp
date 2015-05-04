@@ -118,8 +118,7 @@
                                     <li>
                                         <s:link href="/event/listOfLeagues">Overview of Leagues</s:link>
                                         <ul>
-                                            <li><s:link href="/event/">menu item</s:link></li>
-                                            <li><s:link href="/index/2">menu item</s:link></li>                            
+                                            <li><s:link href="/event/listForUser">All Events</s:link></li>                           
                                         </ul>
                                     </li>
                                     <li>

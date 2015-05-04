@@ -18,7 +18,7 @@
             <column name="place" length="50" not-null="true" />
         </property>
         <property name="date" type="date">
-            <column name="`Date`" length="13" not-null="true" />
+            <column name="date" length="13" not-null="true" />
         </property>
         <property name="drawodds" type="double">
             <column name="drawodds" precision="17" scale="17" not-null="true" />

@@ -4,19 +4,60 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" nadpis="${actionBean.league.name}">
+<s:layout-render name="/layout.jsp" nadpis="All Events">
     <s:layout-component name="telo">
-        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" var="actionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" var="eventActionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.SportActionBean" var="sportActionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.CountryActionBean" var="countryActionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.LeagueActionBean" var="leagueActionBean"/>
+        
+        <s:form beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" action="/event/setFilterEvents">
+            <fieldset>
+                <table>
+                    <tr>
+                        <th><s:label for="sport" name="sport"/></th>
+                        <td>
+                            <s:select id="sportId" name="sportId">
+                                <s:option value="" label="" />
+                                <s:options-collection collection="${sportActionBean.allSports}" value="id" label="kindofsport" />
+                            </s:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><s:label for="league" name="league"/></th>
+                        <td>
+                            <s:select id="leagueId" name="leagueId">
+                                <s:option value="" label="" />
+                                <s:options-collection collection="${leagueActionBean.allLeagues}" value="id" label="name" />
+                            </s:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><s:submit name="setFilterEvents">Filter events</s:submit></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </s:form>
         
         <table class="zakladni" >
                 <tr>
+                    <th>Sport</th>
+                    <th>League</th>
                     <th>Name</th>
                     <th>Place</th>
                     <th>Date</th>
                    <th>Bet</th> 
                 </tr>
-                <c:forEach items="${actionBean.allEventsByLeague}" var="event">
+                <c:forEach items="${eventActionBean.getFilterEvents()}" var="event">
                     <tr>
+                        <td>
+                            <c:out value="${event.league.sport.kindofsport}" />
+                        </td>
+                        <td>
+                            <c:out value="${event.league.name}" />
+                        </td>
+                      
                         <td>
                             <c:out value="${event.name}" />
                         </td>
@@ -74,4 +115,3 @@
             </table>   
     </s:layout-component>
 </s:layout-render>
-

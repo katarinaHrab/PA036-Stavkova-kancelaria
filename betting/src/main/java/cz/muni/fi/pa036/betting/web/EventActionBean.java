@@ -5,19 +5,14 @@
  */
 package cz.muni.fi.pa036.betting.web;
 
-import cz.muni.fi.pa036.betting.model.Country;
 import cz.muni.fi.pa036.betting.model.Event;
 import cz.muni.fi.pa036.betting.model.EventCompetitor;
 import cz.muni.fi.pa036.betting.model.EventCompetitorId;
 import cz.muni.fi.pa036.betting.model.League;
 import cz.muni.fi.pa036.betting.service.EventCompetitorService;
-import cz.muni.fi.pa036.betting.model.Sport;
-import cz.muni.fi.pa036.betting.service.CountryService;
 import cz.muni.fi.pa036.betting.service.EventService;
 import cz.muni.fi.pa036.betting.service.LeagueService;
-import cz.muni.fi.pa036.betting.service.SportService;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -65,6 +60,60 @@ public class EventActionBean extends BaseActionBean{
     private League league;
     private Integer competitorId;
     private Double odds;
+    private Integer leagueId;
+    private Integer sportId;
+    private List<Event> filterEvents;
+
+    public List<Event> getFilterEvents() {
+        if (filterEvents==null) {
+            filterEvents = new ArrayList<Event>();
+            filterEvents.addAll(getAllEvents());
+         }
+        return filterEvents;
+    }
+    
+    public Resolution setFilterEvents() {
+        filterEvents = new ArrayList<Event>();
+        filterEvents.addAll(getAllEvents());
+        if (sportId!=null) {
+            List<Event> pom = new ArrayList<Event>();
+            for (Event e: filterEvents) {
+                if (e.getLeague().getSport().getId()!=sportId) {
+                    pom.add(e);
+                }
+            }
+            filterEvents.removeAll(pom);
+        }
+        if (leagueId!=null) {
+            List<Event> pom = new ArrayList<Event>();
+            for (Event e: filterEvents) {
+                if (e.getLeague().getId()!=leagueId) {
+                    pom.add(e);
+                }
+            }
+            filterEvents.removeAll(pom);
+        }
+        System.out.println("league: "+leagueId+" ,sport: "+sportId);
+        return new ForwardResolution("/event/listForUser.jsp");
+    }
+    
+    public Integer getLeagueId() {
+        return leagueId;
+    }
+
+    public void setLeagueId(Integer leagueId) {
+        this.leagueId = leagueId;
+    }
+
+    public Integer getSportId() {
+        return sportId;
+    }
+
+    public void setSportId(Integer sportId) {
+        this.sportId = sportId;
+    }
+    
+    
 
     public Event getEvent() {
         return event;
@@ -251,7 +300,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution listOfLeagues() {
-        log.debug("all()");
+        log.debug("allLeaguesForUser()");
         return new ForwardResolution("/event/listOfLeagues.jsp");
     }
     
@@ -266,7 +315,11 @@ public class EventActionBean extends BaseActionBean{
                 allEventsByLeague.add(e);
             }
         }
-        //allEventsByLeague.add(new Event(3, league, "event1", "slovakia", new Date(22222222), 2.4));
         return new ForwardResolution("/event/eventsOfLeague.jsp");
+    }
+    
+    public Resolution listForUser() {
+        log.debug("allEventsForUser()");
+        return new ForwardResolution("/event/listForUser.jsp");
     }
 }
