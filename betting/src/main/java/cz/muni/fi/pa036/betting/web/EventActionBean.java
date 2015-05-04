@@ -5,10 +5,14 @@
  */
 package cz.muni.fi.pa036.betting.web;
 
+import cz.muni.fi.pa036.betting.model.Country;
 import cz.muni.fi.pa036.betting.model.Event;
 import cz.muni.fi.pa036.betting.model.League;
+import cz.muni.fi.pa036.betting.model.Sport;
+import cz.muni.fi.pa036.betting.service.CountryService;
 import cz.muni.fi.pa036.betting.service.EventService;
 import cz.muni.fi.pa036.betting.service.LeagueService;
+import cz.muni.fi.pa036.betting.service.SportService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,16 +84,11 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public List<Event> getAllEvents() {
-        System.out.println("get all events funkcia");
         return eventService.findAll();
     }
     
     public List<Event> getAllEventsByLeague() {
         return allEventsByLeague;
-    }
-    
-    public List<League> getAllLeagues() {
-        return leagueService.findAll();
     }
     
     @DefaultHandler
@@ -187,12 +186,11 @@ public class EventActionBean extends BaseActionBean{
         
         league = leagueService.findById(Integer.parseInt(ids));
         allEventsByLeague = new ArrayList<Event>();
-      /*  for (Event e: getAllEvents()) {
+        for (Event e: getAllEvents()) {
             if (e.getLeague().equals(league)) {
                 allEventsByLeague.add(e);
             }
-        }*/
-        allEventsByLeague.add(new Event(3, league, "event1", "slovakia", new Date(22222222), 2.4));
+        }
         return new ForwardResolution("/event/eventsOfLeague.jsp");
     }
 }
