@@ -8,6 +8,10 @@
     <s:layout-component name="telo">
         <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.CountryActionBean" var="actionBean"/>
         
+            <s:form beanclass="cz.muni.fi.pa036.betting.web.CountryActionBean" action="/country/add">
+                <s:submit name="add" value="New country"/>
+            </s:form>
+        
             <table class="zakladni">
                 <tr>
                     <th>ID</th>
@@ -35,7 +39,14 @@
                         </td>
                     </tr>
                 </c:forEach>
-            </table>           
+            </table>   
+        
+            <s:form beanclass="cz.muni.fi.pa036.betting.web.CountryActionBean" action="/Country/add">
+                <p style="text-align: right">
+                <s:submit name="add" value="New country"/>
+                </p>
+            </s:form>
+                
         </div>
 
     </s:layout-component>

@@ -12,7 +12,7 @@
                 <column name="sportid" />
             </key-property>
         </composite-id>
-        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" update="false" insert="false" fetch="select">
+        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" update="false" insert="false" fetch="join" lazy="false">
             <column name="sportid" not-null="true" />
         </many-to-one>
         <many-to-one name="user" class="cz.muni.fi.pa036.betting.model.User" update="false" insert="false" fetch="select">

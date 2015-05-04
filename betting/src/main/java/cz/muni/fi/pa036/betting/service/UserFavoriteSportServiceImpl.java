@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa036.betting.service;
 
+import com.googlecode.genericdao.search.Search;
 import cz.muni.fi.pa036.betting.dao.UserFavoriteSportDAO;
 import cz.muni.fi.pa036.betting.model.UserFavoriteSport;
 import cz.muni.fi.pa036.betting.model.UserFavoriteSportId;
@@ -24,6 +25,11 @@ public class UserFavoriteSportServiceImpl extends GenericServiceImpl<UserFavorit
     @Autowired
     public void setUserFavoriteSportDAO(UserFavoriteSportDAO dao) {
         super.dao = dao;
+    }
+    
+    @Override
+    public UserFavoriteSport findByPriority(Integer userid, Integer priority){
+        return dao.searchUnique(new Search().addFilterEqual("id.userid", userid).addFilterEqual("priority", priority));
     }
     
 }

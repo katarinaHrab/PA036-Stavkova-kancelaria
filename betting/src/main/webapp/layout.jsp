@@ -88,9 +88,6 @@
                                     </li>
                                     <li>
                                         <s:link href="/country/">Countries</s:link>
-                                        <ul>
-                                            <li><s:link href="/country/add">Add</s:link></li>
-                                        </ul>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
@@ -100,6 +97,9 @@
                                             <li><s:link href="/event/">menu item</s:link></li>
                                             <li><s:link href="/index/2">menu item</s:link></li>                            
                                         </ul>
+                                    </li>
+                                    <li>
+                                        <s:link href="/userFavoriteSport">Favorite sports</s:link>                                        
                                     </li>
                                 </c:otherwise>
                             </c:choose>
