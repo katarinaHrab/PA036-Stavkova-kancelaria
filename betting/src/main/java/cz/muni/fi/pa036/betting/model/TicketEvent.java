@@ -18,7 +18,11 @@ public class TicketEvent  implements java.io.Serializable {
     public TicketEvent() {
     }
 
-	
+    public TicketEvent(Event event, Ticket ticket, double betvalue) {
+        this.event = event;
+        this.ticket = ticket;
+        this.betvalue = betvalue;
+    }
     public TicketEvent(TicketEventId id, Event event, Ticket ticket, double betvalue) {
         this.id = id;
         this.event = event;
@@ -69,7 +73,13 @@ public class TicketEvent  implements java.io.Serializable {
         this.betvalue = betvalue;
     }
 
-
+    public String getCompetitorName() {
+        if (competitor == null) {
+            return "(Draw)";
+        } else {
+            return competitor.getName();
+        }
+    }
 
 
 }

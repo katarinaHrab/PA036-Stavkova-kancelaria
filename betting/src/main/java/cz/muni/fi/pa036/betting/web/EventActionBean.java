@@ -7,7 +7,10 @@ package cz.muni.fi.pa036.betting.web;
 
 import cz.muni.fi.pa036.betting.model.Country;
 import cz.muni.fi.pa036.betting.model.Event;
+import cz.muni.fi.pa036.betting.model.EventCompetitor;
+import cz.muni.fi.pa036.betting.model.EventCompetitorId;
 import cz.muni.fi.pa036.betting.model.League;
+import cz.muni.fi.pa036.betting.service.EventCompetitorService;
 import cz.muni.fi.pa036.betting.model.Sport;
 import cz.muni.fi.pa036.betting.service.CountryService;
 import cz.muni.fi.pa036.betting.service.EventService;
@@ -44,6 +47,9 @@ public class EventActionBean extends BaseActionBean{
     private EventService eventService;
     
     @SpringBean
+    private EventCompetitorService eventCompetitorService;
+    
+    @SpringBean
     private LeagueService leagueService;
     
     @ValidateNestedProperties(value =  { 
@@ -57,6 +63,8 @@ public class EventActionBean extends BaseActionBean{
     private Event event;
     private List<Event> allEventsByLeague;
     private League league;
+    private Integer competitorId;
+    private Double odds;
 
     public Event getEvent() {
         return event;
@@ -73,8 +81,25 @@ public class EventActionBean extends BaseActionBean{
     public void setLeague(League league) {
         this.league = league;
     }
+
+    public Integer getCompetitorId() {
+        return competitorId;
+    }
+
+    public void setCompetitorId(Integer competitorId) {
+        this.competitorId = competitorId;
+    }
+
+    public Double getOdds() {
+        return odds;
+    }
+
+    public void setOdds(Double odds) {
+        this.odds = odds;
+    }
     
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "detail"})
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "detail",
+        "editCompetitors", "addCompetitor", "removeCompetitor"})
     public void loadEventFromDatabase() {
         String ids = getRequestParam("event.id");
         if (ids == null) {
@@ -146,6 +171,56 @@ public class EventActionBean extends BaseActionBean{
             return new ForwardResolution("/error.jsp");
         }
     }
+    
+    public Resolution editCompetitors() {
+        if (getIsUserAdmin()) {
+            log.debug("editcompetitors event={}", event);
+            return new ForwardResolution("/event/editCompetitors.jsp");
+        } else {
+            log.warn(getLoggedUser().getLogin()
+                    + " is trying to edit event competitors without permission!");
+            this.getContext().getValidationErrors().addGlobalError(new SimpleError("DENIED."));
+            return new ForwardResolution("/error.jsp");
+        }
+    }
+    
+    public Resolution removeCompetitor() {
+        if (getIsUserAdmin()) {
+            log.debug("removecompetitor event={}", event);
+            EventCompetitor ec = eventCompetitorService.findById(new EventCompetitorId(event.getId(), competitorId));
+            if (ec != null) {
+                eventCompetitorService.delete(ec);
+                getContext().getMessages().add(new SimpleMessage(
+                    "Competitor was deleted from event.", event.toString()));
+            }
+            return new RedirectResolution(EventActionBean.class, "editCompetitors")
+                    .addParameter("event.id", event.getId());
+        } else {
+            log.warn(getLoggedUser().getLogin()
+                    + " is trying to edit event competitors without permission!");
+            this.getContext().getValidationErrors().addGlobalError(new SimpleError("DENIED."));
+            return new ForwardResolution("/error.jsp");
+        }
+    }
+    
+    public Resolution addCompetitor() {
+        if (getIsUserAdmin()) {
+            log.debug("addCompetitor event={}", event);
+            EventCompetitor ec = eventCompetitorService.findById(new EventCompetitorId(event.getId(), competitorId));
+            if (ec == null) {
+                eventCompetitorService.save(new EventCompetitor(new EventCompetitorId(event.getId(), competitorId), null, event, odds));
+                getContext().getMessages().add(new SimpleMessage(
+                    "Competitor was added from event.", event.toString()));
+            }
+            return new RedirectResolution(EventActionBean.class, "editCompetitors")
+                    .addParameter("event.id", event.getId());
+        } else {
+            log.warn(getLoggedUser().getLogin()
+                    + " is trying to edit event competitors without permission!");
+            this.getContext().getValidationErrors().addGlobalError(new SimpleError("DENIED."));
+            return new ForwardResolution("/error.jsp");
+        }
+    }
 
     public Resolution delete() {
         if (getIsUserAdmin()) {
@@ -191,6 +266,7 @@ public class EventActionBean extends BaseActionBean{
                 allEventsByLeague.add(e);
             }
         }
+        //allEventsByLeague.add(new Event(3, league, "event1", "slovakia", new Date(22222222), 2.4));
         return new ForwardResolution("/event/eventsOfLeague.jsp");
     }
 }

@@ -63,6 +63,21 @@
                                     </tr>
                                 </c:forEach>
                            </table>
+                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="addToTicket">
+                                <s:param name="event.id" value="${event.id}" />
+                                <s:param name="path" value="${actionBean.currentPath}" />
+                                Bet draw
+                            </s:link>
+                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="addToTicket">
+                                <s:param name="event.id" value="${event.id}" />
+                                <s:param name="path" value="${actionBean.currentPath}" />
+                                Bet draw
+                            </s:link>
+                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="addToTicket">
+                                <s:param name="event.id" value="${event.id}" />
+                                <s:param name="path" value="${actionBean.currentPath}" />
+                                Bet draw
+                            </s:link>
                         </td>
                     </tr>
                 </c:forEach>

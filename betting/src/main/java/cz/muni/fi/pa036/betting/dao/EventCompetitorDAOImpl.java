@@ -6,6 +6,7 @@
 package cz.muni.fi.pa036.betting.dao;
 
 import cz.muni.fi.pa036.betting.model.EventCompetitor;
+import cz.muni.fi.pa036.betting.model.EventCompetitorId;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository("eventCompetitorDAO")
 @Transactional
-public class EventCompetitorDAOImpl extends BaseDAOImpl<EventCompetitor, Integer> implements EventCompetitorDAO {
+public class EventCompetitorDAOImpl extends BaseDAOImpl<EventCompetitor, EventCompetitorId> implements EventCompetitorDAO {
     
 }

@@ -7,11 +7,12 @@ package cz.muni.fi.pa036.betting.dao;
 
 import com.googlecode.genericdao.dao.hibernate.GenericDAO;
 import cz.muni.fi.pa036.betting.model.EventCompetitor;
+import cz.muni.fi.pa036.betting.model.EventCompetitorId;
 
 /**
  *
  * @author Martin Malik <374128@mail.muni.cz>
  */
-public interface EventCompetitorDAO extends GenericDAO<EventCompetitor, Integer> {
+public interface EventCompetitorDAO extends GenericDAO<EventCompetitor, EventCompetitorId> {
     
 }

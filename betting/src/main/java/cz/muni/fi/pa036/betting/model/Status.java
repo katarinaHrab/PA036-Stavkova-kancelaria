@@ -10,6 +10,10 @@ import java.util.Set;
  */
 public class Status  implements java.io.Serializable {
 
+    public static final int STATUS_CREATED = 1;
+    public static final int STATUS_CLOSED = 2;
+    public static final int STATUS_WINNING = 3;
+    public static final int STATUS_LOSING = 4;
 
      private int id;
      private String name;

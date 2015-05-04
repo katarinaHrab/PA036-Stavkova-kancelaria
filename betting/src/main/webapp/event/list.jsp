@@ -11,17 +11,23 @@
             <table class="zakladni">
                 <tr>
                     <th>Id</th>
+                    <th>Name</th>
                     <th>League</th>
                     <th>Place</th>
                     <th>Date</th>
                     <th>Drawodds</th>
-                    <th>Name</th>
                     <th>Action</th>
                 </tr>
                 <c:forEach items="${actionBean.allEvents}" var="event">
                     <tr>
                         <td>
                             <c:out value="${event.id}"/>
+                        </td>
+                        <td>
+                            <s:link beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" event="detail">
+                                <s:param name="event.id" value="${event.id}"/>
+                                <c:out value="${event.name}"/>
+                            </s:link>
                         </td>
                         <td>
                             <c:out value="${event.league.name}" />
@@ -35,9 +41,6 @@
                         <td>
                             <c:out value="${event.drawodds}"/>
                         </td>
-                        <td>
-                            <c:out value="${event.name}"/>
-                        </td>
                         
                         
                         <td>
@@ -45,6 +48,9 @@
                                 <s:link beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" event="edit">
                                     <s:param name="event.id" value="${event.id}"/>
                                     <img src="${pageContext.request.contextPath}/img/pencil.png" alt="edit event" title="edit the event"></s:link>
+                                <s:link beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" event="editCompetitors">
+                                    <s:param name="event.id" value="${event.id}"/>
+                                    <img src="${pageContext.request.contextPath}/img/plus.png" alt="edit competitors" title="edit copmetitors"></s:link>
                                 <s:link beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" event="delete" onclick="return confirm('Are you sure you want to delete this?')">
                                     <s:param name="event.id" value="${event.id}"/>
                                     <img src="${pageContext.request.contextPath}/img/cross-script.png" alt="delete message" title="delete the event"></s:link>

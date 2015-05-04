@@ -8,17 +8,26 @@
         <head>
             <title><c:out value="Betting - ${nadpis}" /></title>
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/zebra_css/bootstrap.css" />
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/jquery.datetimepicker.css" />
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/jquery-ui.css" />
             <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
             <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
-            <script type="text/javascript" src="${pageContext.request.contextPath}/js/zebra_datepicker.js"></script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
             <script type="text/javascript">
                 $(document).ready(function() {
 
-                $('input.datepicker').Zebra_DatePicker({
+                /*$('input.datepicker').Zebra_DatePicker({
                     format: 'd. m. Y'
+                });*/
+                $('input.datetimepicker').datetimepicker();
+                $('input.datepicker').datetimepicker({
+                    timepicker:false,
+                    format:'d.m.Y'
                 });
+                $('input.timepicker').datetimepicker({
+                    datepicker:false,
+                    format:'H:i'
+                  });
                 
                 $('#helpTextIcon').click(function() {
                     $('#helpTextWrapper').toggle();
@@ -94,6 +103,21 @@
                                     </li>
                                 </c:when>
                                 <c:otherwise>
+                                    <c:if test="${actionBean.currentTicket != null}">
+                                        <li>
+                                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="detail">
+                                                <s:param name="ticket.id" value="${actionBean.currentTicket.id}" />
+                                                Aktuální tiket (<c:out value="${actionBean.currentTicket.ticketEventsCount}"/>)
+                                            </s:link>
+                                            <div class="ticketMenuData">
+                                            <c:forEach items="${actionBean.currentTicket.ticketEvents}" var="ticketEvent">
+                                                ${ticketEvent.event.name}: ${ticketEvent.competitorName} - ${ticketEvent.betvalue}<br/>
+                                            </c:forEach>
+                                            ---<br/>
+                                            Total: ${actionBean.currentTicket.totalTicketOdds} 
+                                            </div>
+                                        </li>
+                                    </c:if>
                                     <li>
                                         <s:link href="/event/listOfLeagues">Overview of Leagues</s:link>
                                         <ul>
