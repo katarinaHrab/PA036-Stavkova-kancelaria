@@ -1,11 +1,13 @@
 package cz.muni.fi.pa036.betting.web;
 
+import cz.muni.fi.pa036.betting.model.Competitor;
 import cz.muni.fi.pa036.betting.model.Event;
 import cz.muni.fi.pa036.betting.model.EventCompetitor;
 import cz.muni.fi.pa036.betting.model.Status;
 import cz.muni.fi.pa036.betting.model.Ticket;
 import cz.muni.fi.pa036.betting.model.TicketEvent;
 import cz.muni.fi.pa036.betting.model.TicketEventId;
+import cz.muni.fi.pa036.betting.service.CompetitorService;
 import cz.muni.fi.pa036.betting.service.EventService;
 import cz.muni.fi.pa036.betting.service.StatusService;
 import cz.muni.fi.pa036.betting.service.TicketEventService;
@@ -47,6 +49,9 @@ public class TicketActionBean extends BaseActionBean {
     
     @SpringBean
     private StatusService statusService;
+    
+    @SpringBean
+    private CompetitorService competitorService;
     
     @ValidateNestedProperties(value =  { 
         @Validate(on = {"closeTicket"}, field = "deposit", minvalue = 1, required = true),
@@ -147,7 +152,19 @@ public class TicketActionBean extends BaseActionBean {
                         }
                     }
                 }
-                ticket.getTicketEvents().add(new TicketEvent(new TicketEventId(ticket.getId(), event.getId()), event, ticket, betValue));
+                TicketEvent existingTE = null;
+                for (TicketEvent ticketEvent : ticket.getTicketEvents()) {
+                    if (ticketEvent.getEvent().equals(event)) {
+                        existingTE = ticketEvent;
+                    }
+                }
+                Competitor competitor = (competitorId == null ? null : competitorService.findById(competitorId));
+                if (existingTE != null) {
+                    existingTE.setCompetitor(competitor);
+                    existingTE.setBetvalue(betValue);
+                } else {
+                    ticket.getTicketEvents().add(new TicketEvent(new TicketEventId(ticket.getId(), event.getId()), competitor, event, ticket, betValue));
+                }
                 ticketService.save(ticket);
                 
                 getContext().getMessages().add(new SimpleMessage(

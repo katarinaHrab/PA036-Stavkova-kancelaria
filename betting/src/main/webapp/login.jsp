@@ -11,13 +11,13 @@
 </script>
 
 
-<s:layout-render name="/layout.jsp" nadpis="Přihlásit se">
+<s:layout-render name="/layout.jsp" nadpis="Log in">
     <s:layout-component name="telo">
         <s:form class="loginForm" beanclass="cz.muni.fi.pa036.betting.web.SecurityActionBean" action="/security/submitLogin">
             <div class="bigBlueBox">
                 <div class="title">
-                    <img src="${pageContext.request.contextPath}/img/user-32.png" alt="přihlásit" title="přihlásit">
-                    Zadejte prosím své přihlašovací údaje
+                    <img src="${pageContext.request.contextPath}/img/user-32.png" alt="login" title="login">
+                    Please enter your credentials
                 </div>
                 <s:hidden name="userPath" value="${userPath}"></s:hidden>
                 <fieldset>
@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <td><s:submit name="submitLogin">Přihlásit</s:submit></td>
+                        <td><s:submit name="submitLogin">Log in</s:submit></td>
                     </tr>
                 </table>
                 </fieldset>
