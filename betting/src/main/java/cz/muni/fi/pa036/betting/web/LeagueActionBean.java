@@ -6,7 +6,6 @@
 
 package cz.muni.fi.pa036.betting.web;
 
-import cz.muni.fi.pa036.betting.model.Competitor;
 import cz.muni.fi.pa036.betting.model.League;
 import cz.muni.fi.pa036.betting.service.LeagueService;
 import java.util.List;
