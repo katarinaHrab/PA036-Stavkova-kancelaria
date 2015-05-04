@@ -100,11 +100,11 @@
                                     </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:if test="${actionBean.currentTicket != null}">
+                                    <c:if test="${(actionBean.currentTicket != null) and (actionBean.currentTicket.ticketEventsCount > 0)}">
                                         <li>
                                             <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="detail">
                                                 <s:param name="ticket.id" value="${actionBean.currentTicket.id}" />
-                                                Aktuální tiket (<c:out value="${actionBean.currentTicket.ticketEventsCount}"/>)
+                                                Current ticket (<c:out value="${actionBean.currentTicket.ticketEventsCount}"/>)
                                             </s:link>
                                             <div class="ticketMenuData">
                                             <c:forEach items="${actionBean.currentTicket.ticketEvents}" var="ticketEvent">

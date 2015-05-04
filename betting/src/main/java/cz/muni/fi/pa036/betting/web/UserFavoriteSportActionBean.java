@@ -7,6 +7,7 @@ import cz.muni.fi.pa036.betting.service.UserService;
 import javax.servlet.http.HttpSession;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -109,6 +110,6 @@ public class UserFavoriteSportActionBean extends BaseActionBean {
         HttpSession session = this.getContext().getRequest().getSession();
         session.setAttribute("user", userService.findById(getLoggedUser().getId()));
         
-        return new ForwardResolution("/userFavoriteSport/list.jsp");
+        return new RedirectResolution(UserFavoriteSportActionBean.class, "all");
     }
 }

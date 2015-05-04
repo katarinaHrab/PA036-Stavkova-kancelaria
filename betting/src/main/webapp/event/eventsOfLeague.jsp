@@ -34,16 +34,18 @@
                                     <th>Odds</th>
                                     <th></th>
                                 </tr>
-                                <c:if test="${event.drawodds>1}">
+                                <c:if test="${event.drawodds > 1}">
                                 <tr style="background-color: #66CCFF">
                                     <td>Draw</td>
                                     <td>
                                         <c:out value="${event.drawodds}"/>
                                     </td>
                                     <td>
-                                       <s:form beanclass="cz.muni.fi.pa036.betting.web.LeagueActionBean" action="/league/add">
+                                        <s:form beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" action="/ticket/addToTicket">
+                                            <s:hidden name="event.id" value="${event.id}" />
+                                            <s:hidden name="path" value="${actionBean.currentPath}" />
                                             <s:submit name="bet" value="Bet"/>
-                                        </s:form> 
+                                        </s:form>
                                     </td>
                                 </tr>
                                 </c:if>
@@ -56,28 +58,16 @@
                                             <c:out value="${eventCompetitor.odds}"/>
                                         </td>
                                         <td>
-                                       <s:form beanclass="cz.muni.fi.pa036.betting.web.LeagueActionBean" action="/league/add">
+                                        <s:form beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" action="/ticket/addToTicket">
+                                            <s:hidden name="event.id" value="${event.id}" />
+                                            <s:hidden name="path" value="${actionBean.currentPath}" />
+                                            <s:hidden name="competitorId" value="${eventCompetitor.competitor.id}" />
                                             <s:submit name="bet" value="Bet"/>
-                                        </s:form> 
+                                        </s:form>
                                     </td>
                                     </tr>
                                 </c:forEach>
                            </table>
-                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="addToTicket">
-                                <s:param name="event.id" value="${event.id}" />
-                                <s:param name="path" value="${actionBean.currentPath}" />
-                                Bet draw
-                            </s:link>
-                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="addToTicket">
-                                <s:param name="event.id" value="${event.id}" />
-                                <s:param name="path" value="${actionBean.currentPath}" />
-                                Bet draw
-                            </s:link>
-                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="addToTicket">
-                                <s:param name="event.id" value="${event.id}" />
-                                <s:param name="path" value="${actionBean.currentPath}" />
-                                Bet draw
-                            </s:link>
                         </td>
                     </tr>
                 </c:forEach>
