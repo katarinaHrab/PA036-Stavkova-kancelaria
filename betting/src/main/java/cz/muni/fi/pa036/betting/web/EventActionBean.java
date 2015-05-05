@@ -68,18 +68,18 @@ public class EventActionBean extends BaseActionBean{
     private Double odds;
     private Integer leagueId;
     private Integer sportId;
-    private SortedSet<Event> filterEvents;
+    private Set<Event> filterEvents;
 
     public Set<Event> getFilterEvents() {
         if (filterEvents==null) {
-            filterEvents = new TreeSet<Event>();
+            filterEvents = new HashSet<Event>();
             filterEvents.addAll(getAllEvents());
          }
         return filterEvents;
     }
     
     public Resolution setFilterEvents() {
-        filterEvents = new TreeSet<Event>();
+        filterEvents = new HashSet<Event>();
         filterEvents.addAll(getAllEvents());
         if (sportId!=null) {
             List<Event> pom = new ArrayList<Event>();
