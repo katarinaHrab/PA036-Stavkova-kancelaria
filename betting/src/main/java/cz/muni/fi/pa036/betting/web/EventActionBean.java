@@ -9,11 +9,18 @@ import cz.muni.fi.pa036.betting.model.Event;
 import cz.muni.fi.pa036.betting.model.EventCompetitor;
 import cz.muni.fi.pa036.betting.model.EventCompetitorId;
 import cz.muni.fi.pa036.betting.model.League;
+import cz.muni.fi.pa036.betting.model.UserFavoriteSport;
 import cz.muni.fi.pa036.betting.service.EventCompetitorService;
 import cz.muni.fi.pa036.betting.service.EventService;
 import cz.muni.fi.pa036.betting.service.LeagueService;
+import cz.muni.fi.pa036.betting.service.UserFavoriteSportService;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -45,7 +52,7 @@ public class EventActionBean extends BaseActionBean{
     private EventCompetitorService eventCompetitorService;
     
     @SpringBean
-    private LeagueService leagueService;
+    private UserFavoriteSportService favoriteSportService;
     
     @ValidateNestedProperties(value =  { 
         @Validate(on = {"addAction", "save"}, field = "league.id", required = true),
@@ -56,24 +63,23 @@ public class EventActionBean extends BaseActionBean{
     })
 
     private Event event;
-    private List<Event> allEventsByLeague;
     private League league;
     private Integer competitorId;
     private Double odds;
     private Integer leagueId;
     private Integer sportId;
-    private List<Event> filterEvents;
+    private SortedSet<Event> filterEvents;
 
-    public List<Event> getFilterEvents() {
+    public Set<Event> getFilterEvents() {
         if (filterEvents==null) {
-            filterEvents = new ArrayList<Event>();
+            filterEvents = new TreeSet<Event>();
             filterEvents.addAll(getAllEvents());
          }
         return filterEvents;
     }
     
     public Resolution setFilterEvents() {
-        filterEvents = new ArrayList<Event>();
+        filterEvents = new TreeSet<Event>();
         filterEvents.addAll(getAllEvents());
         if (sportId!=null) {
             List<Event> pom = new ArrayList<Event>();
@@ -113,8 +119,6 @@ public class EventActionBean extends BaseActionBean{
         this.sportId = sportId;
     }
     
-    
-
     public Event getEvent() {
         return event;
     }
@@ -159,10 +163,6 @@ public class EventActionBean extends BaseActionBean{
     
     public List<Event> getAllEvents() {
         return eventService.findAll();
-    }
-    
-    public List<Event> getAllEventsByLeague() {
-        return allEventsByLeague;
     }
     
     @DefaultHandler
@@ -299,27 +299,22 @@ public class EventActionBean extends BaseActionBean{
         }
     }
     
-    public Resolution listOfLeagues() {
-        log.debug("allLeaguesForUser()");
-        return new ForwardResolution("/event/listOfLeagues.jsp");
-    }
-    
-    public Resolution eventsByLeague() {
-        log.debug("eventsByLeague()");
-        String ids = getRequestParam("league.id");
-        
-        league = leagueService.findById(Integer.parseInt(ids));
-        allEventsByLeague = new ArrayList<Event>();
-        for (Event e: getAllEvents()) {
-            if (e.getLeague().equals(league)) {
-                allEventsByLeague.add(e);
-            }
-        }
-        return new ForwardResolution("/event/eventsOfLeague.jsp");
-    }
-    
     public Resolution listForUser() {
         log.debug("allEventsForUser()");
         return new ForwardResolution("/event/listForUser.jsp");
+    }
+    
+    public class EventComparator implements Comparator<Event> {
+        
+        public int compare(Event e1, Event e2) {
+            UserFavoriteSport sport1 = favoriteSportService.findByPriority(getLoggedUser().getId(), 1);
+            UserFavoriteSport sport2 = favoriteSportService.findByPriority(getLoggedUser().getId(), 2);
+            UserFavoriteSport sport3 = favoriteSportService.findByPriority(getLoggedUser().getId(), 3);
+            
+         /*   if (sport1!=null) {
+                if (e1.getLeague().getSport())
+            }*/
+            return 0;
+       }
     }
 }

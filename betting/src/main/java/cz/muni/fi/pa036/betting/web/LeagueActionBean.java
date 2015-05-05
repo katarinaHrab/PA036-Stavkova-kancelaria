@@ -43,9 +43,6 @@ public class LeagueActionBean extends BaseActionBean {
         @Validate(on = {"addAction", "save"}, field = "name", maxlength = 255, required = true),
     })
     private League league;
-    private String sportId;
-    private String countryId;
-    private List<League> filterLeagues;
 
     public League getLeague() {
         return league;
@@ -53,22 +50,6 @@ public class LeagueActionBean extends BaseActionBean {
 
     public void setLeague(League league) {
         this.league = league;
-    }
-
-    public String getSportId() {
-        return sportId;
-    }
-
-    public void setSportId(String sportId) {
-        this.sportId = sportId;
-    }
-
-    public String getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
     }
     
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "detail"})
@@ -82,57 +63,6 @@ public class LeagueActionBean extends BaseActionBean {
     
     public List<League> getAllLeagues() {
         return leagueService.findAll();
-    }
-    
-    public List<League> getFilterLeagues() {
-        if (filterLeagues==null) {
-            filterLeagues = new ArrayList<League>();
-            filterLeagues.addAll(getAllLeagues());
-         }
-        return filterLeagues;
-    }
-    
-    public Resolution setFilterLeagues() {
-        if (countryId==null) {
-            countryId = "";
-        }
-        if (sportId == null) {
-            sportId = "";
-        }
-        System.out.println("country: "+countryId+" ,sport: "+sportId);
-        if ((countryId.equals("")) && (sportId.equals(""))) {
-            filterLeagues = new ArrayList<League>();
-            filterLeagues.addAll(getAllLeagues());
-         }
-        else {
-            if (!(countryId.equals("")) && (sportId.equals(""))) {
-            filterLeagues = new ArrayList<League>();
-            for (League le: getAllLeagues()) {
-                if (le.getCountry().getName().equals(countryId)) {
-                    filterLeagues.add(le);
-                }
-            }
-         }
-            else {
-                if ((countryId.equals("")) && (!sportId.equals(""))) {
-                    filterLeagues = new ArrayList<League>();
-                    for (League le: getAllLeagues()) {
-                        if (le.getSport().getKindofsport().equals(sportId)) {
-                            filterLeagues.add(le);
-                        }
-                    }
-                }
-                else {
-                    filterLeagues = new ArrayList<League>();
-                    for (League le: getAllLeagues()) {
-                        if ((le.getSport().getKindofsport().equals(sportId)) && (le.getCountry().getName().equals(countryId))) {
-                            filterLeagues.add(le);
-                        }
-                    }
-                }
-            }
-        }
-        return new ForwardResolution("/event/listOfLeagues.jsp");
     }
     
     @DefaultHandler

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" nadpis="All Events">
+<s:layout-render name="/layout.jsp" nadpis="Overview of Events">
     <s:layout-component name="telo">
         <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" var="eventActionBean"/>
         <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.SportActionBean" var="sportActionBean"/>

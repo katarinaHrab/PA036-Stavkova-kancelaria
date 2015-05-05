@@ -106,10 +106,7 @@
                                         </li>
                                     </c:if>
                                     <li>
-                                        <s:link href="/event/listOfLeagues">Overview of Leagues</s:link>
-                                        <ul>
-                                            <li><s:link href="/event/listForUser">All Events</s:link></li>                           
-                                        </ul>
+                                        <s:link href="/event/listForUser">Overview of Events</s:link>
                                     </li>
                                     <li>
                                         <s:link href="/userFavoriteSport">Favorite sports</s:link>                                        
