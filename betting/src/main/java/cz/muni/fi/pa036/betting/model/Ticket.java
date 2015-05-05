@@ -102,6 +102,14 @@ public class Ticket  implements java.io.Serializable {
         }
         return result;
     }
+    
+    public double getTotalWonMoney() {
+        double result = 0;
+        if (this.status.getId() == Status.STATUS_WINNING) {
+            result = this.deposit * getTotalTicketOdds();
+        }
+        return result;
+    }
 
 }
 

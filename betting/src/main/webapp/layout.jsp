@@ -73,6 +73,12 @@
                             <c:choose>
                                 <c:when test="${user.isUserAdmin == true}">
                                     <li>
+                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
+                                            All tickets
+                                        </s:link>
+                                    </li>
+                                    
+                                    <li>
                                         <s:link href="/event/">Events</s:link>
                                     </li>
                                     
@@ -105,6 +111,11 @@
                                             </div>
                                         </li>
                                     </c:if>
+                                    <li>
+                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
+                                            My tickets
+                                        </s:link>
+                                    </li>
                                     <li>
                                         <s:link href="/event/listOfLeagues">Overview of Leagues</s:link>
                                         <ul>
