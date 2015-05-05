@@ -6,6 +6,7 @@
 
 package cz.muni.fi.pa036.betting.service;
 
+import com.googlecode.genericdao.search.Search;
 import cz.muni.fi.pa036.betting.dao.TicketDAO;
 import cz.muni.fi.pa036.betting.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,17 @@ public class TicketServiceImpl extends GenericServiceImpl<Ticket, Integer> imple
     @Autowired
     public void setTicketDAO(TicketDAO dao) {
         super.dao = dao;
+    }
+    
+    public int getTicketCountByUserId(int userid){
+        return dao.search(new Search().addFilterEqual("user.id", userid)).size();
+    }
+    
+    public int getTicketWonByUserId(int userid){
+        return dao.search(new Search().addFilterEqual("user.id", userid).addFilterEqual("status.id", 3)).size();
+    }
+    
+    public int getTicketLostByUserId(int userid){
+        return dao.search(new Search().addFilterEqual("user.id", userid).addFilterEqual("status.id", 4)).size();
     }
 }

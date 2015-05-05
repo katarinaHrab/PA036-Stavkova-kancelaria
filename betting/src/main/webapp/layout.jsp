@@ -112,6 +112,9 @@
                                         </ul>
                                     </li>
                                     <li>
+                                        <s:link href="/statistics">Statistics</s:link>
+                                    </li>                                    
+                                    <li>
                                         <s:link href="/userFavoriteSport">Favorite sports</s:link>                                        
                                     </li>
                                 </c:otherwise>
