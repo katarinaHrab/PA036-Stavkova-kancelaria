@@ -1,5 +1,6 @@
 package cz.muni.fi.pa036.betting.web;
 
+import cz.muni.fi.pa036.betting.model.Ticket;
 import cz.muni.fi.pa036.betting.model.User;
 import javax.servlet.http.HttpServletRequest;
 import net.sourceforge.stripes.action.ActionBean;
@@ -57,6 +58,22 @@ public class BaseActionBean implements ActionBean {
      */
     public String getRequestParam(String name) {
         return getContext().getRequest().getParameter(name);
+    }
+    
+    public Object getSessionParam(String name) {
+        return getContext().getRequest().getSession().getAttribute(name);
+    }
+    
+    public void setSessionParam(String name, Object value) {
+        getContext().getRequest().getSession().setAttribute(name, value);
+    }
+    
+    public void removeSessionParam(String name) {
+        getContext().getRequest().getSession().removeAttribute(name);
+    }
+    
+    public Ticket getCurrentTicket() {
+        return (Ticket) getSessionParam(TicketActionBean.SESSION_TICKET);
     }
 
     public boolean getIsUserAdmin() {

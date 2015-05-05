@@ -12,10 +12,10 @@
                 <column name="eventid" />
             </key-property>
         </composite-id>
-        <many-to-one name="competitor" class="cz.muni.fi.pa036.betting.model.Competitor" fetch="join">
+        <many-to-one name="competitor" class="cz.muni.fi.pa036.betting.model.Competitor" fetch="join" lazy="false">
             <column name="competitorid" />
         </many-to-one>
-        <many-to-one name="event" class="cz.muni.fi.pa036.betting.model.Event" update="false" insert="false" fetch="select">
+        <many-to-one name="event" class="cz.muni.fi.pa036.betting.model.Event" update="false" insert="false" fetch="join">
             <column name="eventid" not-null="true" />
         </many-to-one>
         <many-to-one name="ticket" class="cz.muni.fi.pa036.betting.model.Ticket" update="false" insert="false" fetch="select">

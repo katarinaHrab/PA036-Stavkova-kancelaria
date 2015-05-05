@@ -6,7 +6,39 @@
 
 <s:layout-render name="/layout.jsp" nadpis="Overview of Leagues and Events">
     <s:layout-component name="telo">
-        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" var="actionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" var="eventActionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.SportActionBean" var="sportActionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.CountryActionBean" var="countryActionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.LeagueActionBean" var="leagueActionBean"/>
+        
+        <s:form beanclass="cz.muni.fi.pa036.betting.web.LeagueActionBean" action="/league/setFilterLeagues">
+            <fieldset>
+                <table>
+                    <tr>
+                        <th><s:label for="country" name="country"/></th>
+                        <td>
+                            <s:select id="countryId" name="countryId">
+                                <s:option value="" label="" />
+                                <s:options-collection collection="${countryActionBean.allCountries}" value="name" label="name" />
+                            </s:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><s:label for="sport" name="sport"/></th>
+                        <td>
+                            <s:select id="sportId" name="sportId">
+                                <s:option value="" label="" />
+                                <s:options-collection collection="${sportActionBean.allSports}" value="kindofsport" label="kindofsport" />
+                            </s:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><s:submit name="setFilterLeagues">Filter leagues</s:submit></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </s:form>
         
             <table class="zakladni">
                 <tr>
@@ -15,7 +47,7 @@
                     <th>Country</th>
                     <th>Events</th>
                 </tr>
-                <c:forEach items="${actionBean.allLeagues}" var="league">
+                <c:forEach items="${leagueActionBean.getFilterLeagues()}" var="league">
                     <tr>
                         <td>
                             <c:out value="${league.name}" />

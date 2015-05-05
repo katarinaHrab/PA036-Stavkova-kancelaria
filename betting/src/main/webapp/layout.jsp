@@ -8,17 +8,26 @@
         <head>
             <title><c:out value="Betting - ${nadpis}" /></title>
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/zebra_css/bootstrap.css" />
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/jquery.datetimepicker.css" />
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/jquery-ui.css" />
             <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
             <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
-            <script type="text/javascript" src="${pageContext.request.contextPath}/js/zebra_datepicker.js"></script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
             <script type="text/javascript">
                 $(document).ready(function() {
 
-                $('input.datepicker').Zebra_DatePicker({
+                /*$('input.datepicker').Zebra_DatePicker({
                     format: 'd. m. Y'
+                });*/
+                $('input.datetimepicker').datetimepicker();
+                $('input.datepicker').datetimepicker({
+                    timepicker:false,
+                    format:'d.m.Y'
                 });
+                $('input.timepicker').datetimepicker({
+                    datepicker:false,
+                    format:'H:i'
+                  });
                 
                 $('#helpTextIcon').click(function() {
                     $('#helpTextWrapper').toggle();
@@ -37,7 +46,7 @@
                         <c:when test="${loggedIn == true}">
                             <s:link href="/security/logout">
                                 <img src="${pageContext.request.contextPath}/img/user32.png" 
-                                     alt="odhlásit" title="odhlásit" />
+                                     alt="log out" title="log out" />
                             </s:link>
                             <br/>
                             <c:out value="${user.login}" />
@@ -49,10 +58,15 @@
                             </s:link>
                             <s:link href="/security/login">
                                 <img src="${pageContext.request.contextPath}/img/user-logged-out32.png" 
-                                     alt="přihlásit" title="přihlásit" />
+                                     alt="log in" title="log in" />
                             </s:link>
+<<<<<<< HEAD
                             </br>
                             <c:out value="Nepřihlášen." />
+=======
+                            <br/>
+                            <c:out value="Not logged in." />
+>>>>>>> b42bbff4fd9d9fc9dafe58deb746822790be8ab0
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -68,42 +82,60 @@
                             <c:choose>
                                 <c:when test="${user.isUserAdmin == true}">
                                     <li>
+                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
+                                            All tickets
+                                        </s:link>
+                                    </li>
+                                    
+                                    <li>
                                         <s:link href="/event/">Events</s:link>
-                                        <ul>
-                                            <li><s:link href="/event/add">Add event</s:link></li>
-                                            <li><s:link href="/event/list">All events</s:link></li>
-                                        </ul>
                                     </li>
                                     
                                     <li>
                                         <s:link href="/competitor/">Competitors</s:link>
-                                        <ul>
-                                            <li><s:link href="/competitor/add">Add</s:link></li>
-                                        </ul>
                                     </li>
                                     <li>
                                         <s:link href="/league/">Leagues</s:link>
                                     </li>
                                     <li>
                                         <s:link href="/sport/">Sports</s:link>
-                                        <ul>
-                                            <li><s:link href="/sport/add">Add</s:link></li>
-                                        </ul>
                                     </li>
                                     <li>
                                         <s:link href="/country/">Countries</s:link>
-                                        <ul>
-                                            <li><s:link href="/country/add">Add</s:link></li>
-                                        </ul>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
+                                    <c:if test="${(actionBean.currentTicket != null) and (actionBean.currentTicket.ticketEventsCount > 0)}">
+                                        <li>
+                                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="detail">
+                                                <s:param name="ticket.id" value="${actionBean.currentTicket.id}" />
+                                                Current ticket (<c:out value="${actionBean.currentTicket.ticketEventsCount}"/>)
+                                            </s:link>
+                                            <div class="ticketMenuData">
+                                            <c:forEach items="${actionBean.currentTicket.ticketEvents}" var="ticketEvent">
+                                                ${ticketEvent.event.name}: ${ticketEvent.competitorName} - ${ticketEvent.betvalue}<br/>
+                                            </c:forEach>
+                                            ---<br/>
+                                            Total: ${actionBean.currentTicket.totalTicketOdds} 
+                                            </div>
+                                        </li>
+                                    </c:if>
+                                    <li>
+                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
+                                            My tickets
+                                        </s:link>
+                                    </li>
                                     <li>
                                         <s:link href="/event/listOfLeagues">Overview of Leagues</s:link>
                                         <ul>
-                                            <li><s:link href="/index/1">menu item</s:link></li>
-                                            <li><s:link href="/index/2">menu item</s:link></li>                            
+                                            <li><s:link href="/event/listForUser">All Events</s:link></li>                           
                                         </ul>
+                                    </li>
+                                    <li>
+                                        <s:link href="/statistics">Statistics</s:link>
+                                    </li>                                    
+                                    <li>
+                                        <s:link href="/userFavoriteSport">Favorite sports</s:link>                                        
                                     </li>
                                 </c:otherwise>
                             </c:choose>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
  
-<s:layout-render name="/layout.jsp" nadpis="Detail hráče">
+<s:layout-render name="/layout.jsp" nadpis="Competitor detail">
     <s:layout-component name="telo">
         <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" var="actionBean"/>
             <table class="zakladni">
@@ -13,11 +13,11 @@
                     <td><c:out value="${actionBean.competitor.id}"/></td>
                 </tr>
                 <tr>
-                    <td class="label">Jméno</td>
+                    <td class="label">Name</td>
                     <td><c:out value="${actionBean.competitor.name}"/></td>
                 </tr>
                 <tr>
-                    <td class="label">Země</td>
+                    <td class="label">Country</td>
                     <td><c:out value="${actionBean.competitor.country.name}"/></td>
                 </tr>
                 <tr>

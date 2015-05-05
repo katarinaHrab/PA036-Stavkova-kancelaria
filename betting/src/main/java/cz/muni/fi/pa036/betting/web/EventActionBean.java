@@ -6,11 +6,13 @@
 package cz.muni.fi.pa036.betting.web;
 
 import cz.muni.fi.pa036.betting.model.Event;
+import cz.muni.fi.pa036.betting.model.EventCompetitor;
+import cz.muni.fi.pa036.betting.model.EventCompetitorId;
 import cz.muni.fi.pa036.betting.model.League;
+import cz.muni.fi.pa036.betting.service.EventCompetitorService;
 import cz.muni.fi.pa036.betting.service.EventService;
 import cz.muni.fi.pa036.betting.service.LeagueService;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -40,6 +42,9 @@ public class EventActionBean extends BaseActionBean{
     private EventService eventService;
     
     @SpringBean
+    private EventCompetitorService eventCompetitorService;
+    
+    @SpringBean
     private LeagueService leagueService;
     
     @ValidateNestedProperties(value =  { 
@@ -53,6 +58,62 @@ public class EventActionBean extends BaseActionBean{
     private Event event;
     private List<Event> allEventsByLeague;
     private League league;
+    private Integer competitorId;
+    private Double odds;
+    private Integer leagueId;
+    private Integer sportId;
+    private List<Event> filterEvents;
+
+    public List<Event> getFilterEvents() {
+        if (filterEvents==null) {
+            filterEvents = new ArrayList<Event>();
+            filterEvents.addAll(getAllEvents());
+         }
+        return filterEvents;
+    }
+    
+    public Resolution setFilterEvents() {
+        filterEvents = new ArrayList<Event>();
+        filterEvents.addAll(getAllEvents());
+        if (sportId!=null) {
+            List<Event> pom = new ArrayList<Event>();
+            for (Event e: filterEvents) {
+                if (e.getLeague().getSport().getId()!=sportId) {
+                    pom.add(e);
+                }
+            }
+            filterEvents.removeAll(pom);
+        }
+        if (leagueId!=null) {
+            List<Event> pom = new ArrayList<Event>();
+            for (Event e: filterEvents) {
+                if (e.getLeague().getId()!=leagueId) {
+                    pom.add(e);
+                }
+            }
+            filterEvents.removeAll(pom);
+        }
+        System.out.println("league: "+leagueId+" ,sport: "+sportId);
+        return new ForwardResolution("/event/listForUser.jsp");
+    }
+    
+    public Integer getLeagueId() {
+        return leagueId;
+    }
+
+    public void setLeagueId(Integer leagueId) {
+        this.leagueId = leagueId;
+    }
+
+    public Integer getSportId() {
+        return sportId;
+    }
+
+    public void setSportId(Integer sportId) {
+        this.sportId = sportId;
+    }
+    
+    
 
     public Event getEvent() {
         return event;
@@ -69,8 +130,25 @@ public class EventActionBean extends BaseActionBean{
     public void setLeague(League league) {
         this.league = league;
     }
+
+    public Integer getCompetitorId() {
+        return competitorId;
+    }
+
+    public void setCompetitorId(Integer competitorId) {
+        this.competitorId = competitorId;
+    }
+
+    public Double getOdds() {
+        return odds;
+    }
+
+    public void setOdds(Double odds) {
+        this.odds = odds;
+    }
     
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "detail"})
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "detail",
+        "editCompetitors", "addCompetitor", "removeCompetitor"})
     public void loadEventFromDatabase() {
         String ids = getRequestParam("event.id");
         if (ids == null) {
@@ -80,16 +158,11 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public List<Event> getAllEvents() {
-        System.out.println("get all events funkcia");
         return eventService.findAll();
     }
     
     public List<Event> getAllEventsByLeague() {
         return allEventsByLeague;
-    }
-    
-    public List<League> getAllLeagues() {
-        return leagueService.findAll();
     }
     
     @DefaultHandler
@@ -147,6 +220,56 @@ public class EventActionBean extends BaseActionBean{
             return new ForwardResolution("/error.jsp");
         }
     }
+    
+    public Resolution editCompetitors() {
+        if (getIsUserAdmin()) {
+            log.debug("editcompetitors event={}", event);
+            return new ForwardResolution("/event/editCompetitors.jsp");
+        } else {
+            log.warn(getLoggedUser().getLogin()
+                    + " is trying to edit event competitors without permission!");
+            this.getContext().getValidationErrors().addGlobalError(new SimpleError("DENIED."));
+            return new ForwardResolution("/error.jsp");
+        }
+    }
+    
+    public Resolution removeCompetitor() {
+        if (getIsUserAdmin()) {
+            log.debug("removecompetitor event={}", event);
+            EventCompetitor ec = eventCompetitorService.findById(new EventCompetitorId(event.getId(), competitorId));
+            if (ec != null) {
+                eventCompetitorService.delete(ec);
+                getContext().getMessages().add(new SimpleMessage(
+                    "Competitor was deleted from event.", event.toString()));
+            }
+            return new RedirectResolution(EventActionBean.class, "editCompetitors")
+                    .addParameter("event.id", event.getId());
+        } else {
+            log.warn(getLoggedUser().getLogin()
+                    + " is trying to edit event competitors without permission!");
+            this.getContext().getValidationErrors().addGlobalError(new SimpleError("DENIED."));
+            return new ForwardResolution("/error.jsp");
+        }
+    }
+    
+    public Resolution addCompetitor() {
+        if (getIsUserAdmin()) {
+            log.debug("addCompetitor event={}", event);
+            EventCompetitor ec = eventCompetitorService.findById(new EventCompetitorId(event.getId(), competitorId));
+            if (ec == null) {
+                eventCompetitorService.save(new EventCompetitor(new EventCompetitorId(event.getId(), competitorId), null, event, odds));
+                getContext().getMessages().add(new SimpleMessage(
+                    "Competitor was added from event.", event.toString()));
+            }
+            return new RedirectResolution(EventActionBean.class, "editCompetitors")
+                    .addParameter("event.id", event.getId());
+        } else {
+            log.warn(getLoggedUser().getLogin()
+                    + " is trying to edit event competitors without permission!");
+            this.getContext().getValidationErrors().addGlobalError(new SimpleError("DENIED."));
+            return new ForwardResolution("/error.jsp");
+        }
+    }
 
     public Resolution delete() {
         if (getIsUserAdmin()) {
@@ -177,7 +300,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution listOfLeagues() {
-        log.debug("all()");
+        log.debug("allLeaguesForUser()");
         return new ForwardResolution("/event/listOfLeagues.jsp");
     }
     
@@ -187,12 +310,16 @@ public class EventActionBean extends BaseActionBean{
         
         league = leagueService.findById(Integer.parseInt(ids));
         allEventsByLeague = new ArrayList<Event>();
-      /*  for (Event e: getAllEvents()) {
+        for (Event e: getAllEvents()) {
             if (e.getLeague().equals(league)) {
                 allEventsByLeague.add(e);
             }
-        }*/
-        allEventsByLeague.add(new Event(3, league, "event1", "slovakia", new Date(22222222), 2.4));
+        }
         return new ForwardResolution("/event/eventsOfLeague.jsp");
+    }
+    
+    public Resolution listForUser() {
+        log.debug("allEventsForUser()");
+        return new ForwardResolution("/event/listForUser.jsp");
     }
 }

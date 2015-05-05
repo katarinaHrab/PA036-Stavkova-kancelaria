@@ -4,17 +4,21 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" nadpis="Hráči">
+<s:layout-render name="/layout.jsp" nadpis="Competitors">
     <s:layout-component name="telo">
         <s:useActionBean beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" var="actionBean"/>
+        
+            <s:form beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" action="/competitor/add">
+                <s:submit name="add" value="New competitor"/>
+            </s:form>
         
             <table class="zakladni">
                 <tr>
                     <th>ID</th>
-                    <th>Jméno</th>
+                    <th>Name</th>
                     <th>Sport</th>
-                    <th>Země</th>
-                    <th>Akce</th>
+                    <th>Country</th>
+                    <th>Action</th>
                 </tr>
                 <c:forEach items="${actionBean.allCompetitors}" var="competitor">
                     <tr>
@@ -35,16 +39,21 @@
                             <c:if test="${actionBean.isUserAdmin}">
                                 <s:link beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" event="edit">
                                     <s:param name="competitor.id" value="${competitor.id}"/>
-                                    <img src="${pageContext.request.contextPath}/img/pencil.png" alt="upravit hráče" title="upravit hráče"></s:link>
-                                <s:link beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" event="delete" onclick="return confirm('Skutečně smazat?')">
+                                    <img src="${pageContext.request.contextPath}/img/pencil.png" alt="edit competitor" title="edit competitor"></s:link>
+                                <s:link beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" event="delete" onclick="return confirm('Really delete?')">
                                     <s:param name="competitor.id" value="${competitor.id}"/>
-                                    <img src="${pageContext.request.contextPath}/img/cross-script.png" alt="odstranit zprávu" title="odstranit zprávu"></s:link>
+                                    <img src="${pageContext.request.contextPath}/img/cross-script.png" alt="delete competitor" title="delete competitor"></s:link>
                             </c:if>
                         </td>
                     </tr>
                 </c:forEach>
             </table>           
-        </div>
+        
+            <s:form beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" action="/competitor/add">
+                <p style="text-align: right">
+                <s:submit name="add" value="New competitor"/>
+                </p>
+            </s:form>
 
     </s:layout-component>
 </s:layout-render>
