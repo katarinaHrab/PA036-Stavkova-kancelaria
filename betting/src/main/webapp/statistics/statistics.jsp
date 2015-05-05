@@ -45,7 +45,7 @@
                     Money deposit
                 </td>
                 <td>
-                    
+                    <c:out value="${stats.moneyDeposit}"/>
                 </td>
                 <td>
                     
@@ -56,7 +56,7 @@
                     Money won
                 </td>
                 <td>
-                    
+                    <c:out value="${stats.moneyWon}"/>
                 </td> 
                 <td>
                     

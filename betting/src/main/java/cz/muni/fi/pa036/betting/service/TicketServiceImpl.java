@@ -6,6 +6,7 @@
 
 package cz.muni.fi.pa036.betting.service;
 
+import cz.muni.fi.pa036.betting.model.Status;
 import com.googlecode.genericdao.search.Search;
 import cz.muni.fi.pa036.betting.dao.TicketDAO;
 import cz.muni.fi.pa036.betting.model.Ticket;
@@ -31,11 +32,11 @@ public class TicketServiceImpl extends GenericServiceImpl<Ticket, Integer> imple
     }
     
     public int getTicketWonByUserId(int userid){
-        return dao.search(new Search().addFilterEqual("user.id", userid).addFilterEqual("status.id", 3)).size();
+        return dao.search(new Search().addFilterEqual("user.id", userid).addFilterEqual("status.id", Status.STATUS_WINNING)).size();
     }
     
     public int getTicketLostByUserId(int userid){
-        return dao.search(new Search().addFilterEqual("user.id", userid).addFilterEqual("status.id", 4)).size();
+        return dao.search(new Search().addFilterEqual("user.id", userid).addFilterEqual("status.id", Status.STATUS_LOSING)).size();
     }
     
     @Override

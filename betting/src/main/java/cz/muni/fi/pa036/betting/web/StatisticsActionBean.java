@@ -1,6 +1,9 @@
 package cz.muni.fi.pa036.betting.web;
 
+import cz.muni.fi.pa036.betting.model.Ticket;
 import cz.muni.fi.pa036.betting.service.TicketService;
+import java.util.List;
+import static jdk.nashorn.internal.objects.NativeMath.round;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -33,5 +36,25 @@ public class StatisticsActionBean extends BaseActionBean{
     
     public int getTicketsLost(){
         return ticketService.getTicketLostByUserId(getLoggedUser().getId());
+    }
+    
+    public double getMoneyWon(){
+        double sum = 0;
+        
+        List<Ticket> tickets = ticketService.findAllByUserId(getLoggedUser().getId());
+        for (Ticket ticket : tickets) {
+            sum += ticket.getTotalWonMoney();
+        }
+        return sum;
+    }
+    
+    public double getMoneyDeposit(){
+        double sum = 0;
+        
+        List<Ticket> tickets = ticketService.findAllByUserId(getLoggedUser().getId());
+        for (Ticket ticket : tickets) {
+            sum += ticket.getDeposit();
+        }
+        return sum;
     }
 }
