@@ -43,11 +43,15 @@
                             <c:out value="${user.login}" />
                         </c:when>
                         <c:otherwise>
+                            <s:link href="/security/signUp">
+                                <img src="${pageContext.request.contextPath}/img/user-32.png" 
+                                     alt="registrovat" title="Sign up" />
+                            </s:link>
                             <s:link href="/security/login">
                                 <img src="${pageContext.request.contextPath}/img/user-logged-out32.png" 
                                      alt="přihlásit" title="přihlásit" />
                             </s:link>
-                            <br/>
+                            </br>
                             <c:out value="Nepřihlášen." />
                         </c:otherwise>
                     </c:choose>
