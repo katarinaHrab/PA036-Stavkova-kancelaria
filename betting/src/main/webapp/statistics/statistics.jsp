@@ -26,7 +26,7 @@
                     <c:out value="${stats.ticketsWon}"/>
                 </td> 
                 <td>
-                    
+                    <c:out value="${stats.ticketsWonPercentage}"/>%
                 </td> 
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                     <c:out value="${stats.ticketsLost}"/>
                 </td> 
                 <td>
-                    
+                    <c:out value="${stats.ticketsLostPercentage}"/>%
                 </td> 
             </tr>            
             <tr>
@@ -45,7 +45,7 @@
                     Money deposit
                 </td>
                 <td>
-                    <c:out value="${stats.moneyDeposit}"/>
+                    <c:out value="${stats.moneyDeposit}"/>$
                 </td>
                 <td>
                     
@@ -56,7 +56,7 @@
                     Money won
                 </td>
                 <td>
-                    <c:out value="${stats.moneyWon}"/>
+                    <c:out value="${stats.moneyWon}"/>$
                 </td> 
                 <td>
                     
@@ -67,7 +67,7 @@
                     <b>Total Balance</b>
                 </td>
                 <td>
-                    
+                    <c:out value="${stats.totalBalance}"/>$
                 </td> 
                 <td>
                     

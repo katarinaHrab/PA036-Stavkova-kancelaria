@@ -1,9 +1,9 @@
 package cz.muni.fi.pa036.betting.web;
 
+import cz.muni.fi.pa036.betting.model.Status;
 import cz.muni.fi.pa036.betting.model.Ticket;
 import cz.muni.fi.pa036.betting.service.TicketService;
 import java.util.List;
-import static jdk.nashorn.internal.objects.NativeMath.round;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -17,6 +17,10 @@ public class StatisticsActionBean extends BaseActionBean{
     
     final static Logger log = LoggerFactory.getLogger(StatisticsActionBean.class);
     
+    private int ticketsCount;
+    private int ticketsLost;
+    private int tiketsWon;
+    
     @SpringBean
     private TicketService ticketService;
     
@@ -27,15 +31,18 @@ public class StatisticsActionBean extends BaseActionBean{
     }
     
     public int getTicketsCount(){
-        return ticketService.getTicketCountByUserId(getLoggedUser().getId());
+        ticketsCount = ticketService.getTicketCountByUserId(getLoggedUser().getId());
+        return ticketsCount;
     }
     
     public int getTicketsWon(){
-        return ticketService.getTicketWonByUserId(getLoggedUser().getId());
+        tiketsWon = ticketService.getTicketWonByUserId(getLoggedUser().getId());
+        return tiketsWon;
     }
     
     public int getTicketsLost(){
-        return ticketService.getTicketLostByUserId(getLoggedUser().getId());
+        ticketsLost = ticketService.getTicketLostByUserId(getLoggedUser().getId());
+        return ticketsLost;
     }
     
     public double getMoneyWon(){
@@ -56,5 +63,26 @@ public class StatisticsActionBean extends BaseActionBean{
             sum += ticket.getDeposit();
         }
         return sum;
+    }
+    
+    public double getTotalBalance(){
+        double sum = 0;
+        
+        List<Ticket> tickets = ticketService.findAllByUserId(getLoggedUser().getId());
+        for (Ticket ticket : tickets) {
+            if (ticket.getStatus().getId() == Status.STATUS_WINNING)
+                sum += ticket.getDeposit();
+            else if (ticket.getStatus().getId() == Status.STATUS_LOSING)
+                sum-= ticket.getDeposit();
+        }
+        return sum;
+    }
+    
+    public double getTicketsWonPercentage(){
+        return tiketsWon/ticketsCount;
+    }
+    
+    public double getTicketsLostPercentage(){
+        return ticketsLost/ticketsCount;
     }
 }
