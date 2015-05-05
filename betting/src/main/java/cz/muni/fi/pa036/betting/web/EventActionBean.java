@@ -68,18 +68,18 @@ public class EventActionBean extends BaseActionBean{
     private Double odds;
     private Integer leagueId;
     private Integer sportId;
-    private Set<Event> filterEvents;
+    private SortedSet<Event> filterEvents;
 
-    public Set<Event> getFilterEvents() {
+    public SortedSet<Event> getFilterEvents() {
         if (filterEvents==null) {
-            filterEvents = new HashSet<Event>();
+            filterEvents = new TreeSet<Event>(new EventComparator());
             filterEvents.addAll(getAllEvents());
          }
         return filterEvents;
     }
     
     public Resolution setFilterEvents() {
-        filterEvents = new HashSet<Event>();
+        filterEvents = new TreeSet<Event>(new EventComparator());
         filterEvents.addAll(getAllEvents());
         if (sportId!=null) {
             List<Event> pom = new ArrayList<Event>();
@@ -306,15 +306,37 @@ public class EventActionBean extends BaseActionBean{
     
     public class EventComparator implements Comparator<Event> {
         
+        @Override
         public int compare(Event e1, Event e2) {
             UserFavoriteSport sport1 = favoriteSportService.findByPriority(getLoggedUser().getId(), 1);
             UserFavoriteSport sport2 = favoriteSportService.findByPriority(getLoggedUser().getId(), 2);
             UserFavoriteSport sport3 = favoriteSportService.findByPriority(getLoggedUser().getId(), 3);
             
-         /*   if (sport1!=null) {
-                if (e1.getLeague().getSport())
-            }*/
-            return 0;
+            if (sport1!=null) {
+                if (e1.getLeague().getSport().equals(sport1.getSport())) {
+                    return -1;
+                }
+                if (e2.getLeague().getSport().equals(sport1.getSport())) {
+                    return 1;
+                }
+            }
+            if (sport2!=null) {
+                if (e1.getLeague().getSport().equals(sport2.getSport())) {
+                    return -1;
+                }
+                if (e2.getLeague().getSport().equals(sport2.getSport())) {
+                    return 1;
+                }
+            }
+            if (sport3!=null) {
+                if (e1.getLeague().getSport().equals(sport3.getSport())) {
+                    return -1;
+                }
+                if (e2.getLeague().getSport().equals(sport3.getSport())) {
+                    return 1;
+                }
+            }
+            return -1;
        }
     }
 }

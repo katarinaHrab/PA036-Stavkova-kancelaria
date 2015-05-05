@@ -69,7 +69,29 @@ public class Sport  implements java.io.Serializable {
         this.leagues = leagues;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + this.id;
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sport other = (Sport) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    
 
 
 }
