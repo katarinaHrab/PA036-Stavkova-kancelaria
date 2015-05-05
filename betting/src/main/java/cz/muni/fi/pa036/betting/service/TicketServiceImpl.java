@@ -25,7 +25,6 @@ public class TicketServiceImpl extends GenericServiceImpl<Ticket, Integer> imple
     public void setTicketDAO(TicketDAO dao) {
         super.dao = dao;
     }
-<<<<<<< HEAD
     
     public int getTicketCountByUserId(int userid){
         return dao.search(new Search().addFilterEqual("user.id", userid)).size();
@@ -37,11 +36,10 @@ public class TicketServiceImpl extends GenericServiceImpl<Ticket, Integer> imple
     
     public int getTicketLostByUserId(int userid){
         return dao.search(new Search().addFilterEqual("user.id", userid).addFilterEqual("status.id", 4)).size();
-=======
-
+    }
+    
     @Override
     public List<Ticket> findAllByUserId(int userId) {
         return dao.search(new Search().addFilterEqual("user.id", userId));
->>>>>>> origin/master
     }
 }
