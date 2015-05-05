@@ -68,6 +68,10 @@ public class BaseActionBean implements ActionBean {
         getContext().getRequest().getSession().setAttribute(name, value);
     }
     
+    public void removeSessionParam(String name) {
+        getContext().getRequest().getSession().removeAttribute(name);
+    }
+    
     public Ticket getCurrentTicket() {
         return (Ticket) getSessionParam(TicketActionBean.SESSION_TICKET);
     }
