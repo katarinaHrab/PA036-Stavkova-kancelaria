@@ -60,13 +60,8 @@
                                 <img src="${pageContext.request.contextPath}/img/user-logged-out32.png" 
                                      alt="log in" title="log in" />
                             </s:link>
-<<<<<<< HEAD
-                            </br>
-                            <c:out value="Nepřihlášen." />
-=======
                             <br/>
                             <c:out value="Not logged in." />
->>>>>>> b42bbff4fd9d9fc9dafe58deb746822790be8ab0
                         </c:otherwise>
                     </c:choose>
                 </div>
