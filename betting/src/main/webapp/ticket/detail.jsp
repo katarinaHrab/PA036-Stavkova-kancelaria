@@ -16,6 +16,20 @@
                     <td class="label">Status</td>
                     <td><c:out value="${actionBean.ticket.status.name}"/></td>
                 </tr>
+                <c:if test="${actionBean.ticket.totalWonMoney > 0}">
+                    <tr>
+                        <td class="label">Deposit</td>
+                        <td>
+                            <c:out value="${actionBean.ticket.deposit}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Won money</td>
+                        <td>
+                            <c:out value="${actionBean.ticket.totalWonMoney}" />
+                        </td>
+                    </tr>
+                </c:if>
                 <tr>
                     <td class="label">Events</td>
                     <td>
@@ -32,12 +46,14 @@
                                     <td>${ticketEvent.competitorName}</td>
                                     <td>${ticketEvent.betvalue}</td>
                                     <td>
-                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="removeFromTicket">
-                                            <s:param name="event.id" value="${ticketEvent.event.id}" />
-                                            <s:param name="path" value="${actionBean.currentPath}" />
-                                            <img src="${pageContext.request.contextPath}/img/cross-script.png" 
-                                                 alt="remove from ticket" title="remove from ticket">
-                                        </s:link>
+                                        <c:if test="${actionBean.ticket.status.id == 1}">
+                                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="removeFromTicket">
+                                                <s:param name="event.id" value="${ticketEvent.event.id}" />
+                                                <s:param name="path" value="${actionBean.currentPath}" />
+                                                <img src="${pageContext.request.contextPath}/img/cross-script.png" 
+                                                     alt="remove from ticket" title="remove from ticket">
+                                            </s:link>
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -53,7 +69,7 @@
                     <s:form beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" action="/ticket/closeTicket">
                         <tr>
                             <td class="label">Deposit</td>
-                            <td><s:text name="ticket.deposit" /></td>
+                            <td><s:text id="deposit" name="ticket.deposit" /></td>
                         </tr>
                         <tr>
                             <td></td>

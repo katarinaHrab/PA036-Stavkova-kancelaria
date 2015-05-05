@@ -143,7 +143,12 @@ public class User  implements java.io.Serializable {
     public boolean getIsUserAdmin() {
         return (roles != null && roles.contains(Role.ROLE_SUPERADMIN));
     }
-
+    
+    @Override
+    public String toString(){
+        return "name: " + name + " surname " + surname; 
+    }
+            
 }
 
 

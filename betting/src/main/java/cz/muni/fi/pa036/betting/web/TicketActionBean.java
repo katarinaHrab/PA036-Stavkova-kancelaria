@@ -12,6 +12,9 @@ import cz.muni.fi.pa036.betting.service.EventService;
 import cz.muni.fi.pa036.betting.service.StatusService;
 import cz.muni.fi.pa036.betting.service.TicketEventService;
 import cz.muni.fi.pa036.betting.service.TicketService;
+import cz.muni.fi.pa036.betting.service.UserService;
+import java.util.ArrayList;
+import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.RedirectResolution;
@@ -52,6 +55,9 @@ public class TicketActionBean extends BaseActionBean {
     
     @SpringBean
     private CompetitorService competitorService;
+    
+    @SpringBean
+    private UserService userService;
     
     @ValidateNestedProperties(value =  { 
         @Validate(on = {"closeTicket"}, field = "deposit", minvalue = 1, required = true),
@@ -112,6 +118,23 @@ public class TicketActionBean extends BaseActionBean {
             }
             event = eventService.findById(Integer.parseInt(ids));
         }
+    }
+    
+    public List<Ticket> getAllTickets() {
+        if (getLoggedUser() != null) {
+            if (getIsUserAdmin()) {
+                return ticketService.findAll();
+            } else {
+                return ticketService.findAllByUserId(getLoggedUser().getId());
+            }
+        } else {
+            return new ArrayList<Ticket>();
+        }
+    }
+    
+    public Resolution all() {
+        log.debug("all()");
+        return new ForwardResolution("/ticket/list.jsp");
     }
     
     public Resolution detail() {
@@ -235,11 +258,41 @@ public class TicketActionBean extends BaseActionBean {
             ticket = (Ticket) getSessionParam(SESSION_TICKET);
             if (ticket != null) {
                 // TODO: check for user balance and subtract money from account
+                if (getLoggedUser().getBalance() < ticket.getDeposit()) {
+                    log.warn(getLoggedUser().getLogin()
+                            + " is trying to close ticket without enough money!");
+                    this.getContext().getValidationErrors().addGlobalError(new SimpleError("You don't have enough money."));
+                    return new ForwardResolution("/error.jsp");
+                } else {
+                    getLoggedUser().setBalance(getLoggedUser().getBalance() - ticket.getDeposit());
+                    userService.save(getLoggedUser());
+                    ticket.setDeposit(Double.parseDouble(getRequestParam("ticket.deposit")));
+                }
                 
                 ticket.setStatus(statusService.findById(Status.STATUS_CLOSED));
                 ticket.setDateofclosed(DateTime.now());
-                // TODO: update bet odds to current values before closing ticket
+                // update bet odds to current values before closing ticket
+                for (TicketEvent ticketEvent : ticket.getTicketEvents()) {
+                    double currentBetValue = 0;
+                    if (ticketEvent.getCompetitor() == null) {
+                        // draw
+                        currentBetValue = ticketEvent.getEvent().getDrawodds();
+                    } else {
+                        for (EventCompetitor eventCompetitor : ticketEvent.getEvent().getEventCompetitors()) {
+                            if (eventCompetitor.getCompetitor().getId() == ticketEvent.getCompetitor().getId()) {
+                                currentBetValue = eventCompetitor.getOdds();
+                                break;
+                            }
+                        }
+                    }
+                    if (currentBetValue != 0) {
+                        ticketEvent.setBetvalue(currentBetValue);
+                        ticketEventService.save(ticketEvent);
+                    }
+                }
                 ticketService.save(ticket);
+                
+                removeSessionParam(SESSION_TICKET);
                 return new RedirectResolution(TicketActionBean.class, "detail")
                         .addParameter("ticket.id", ticket.getId());
             } else {

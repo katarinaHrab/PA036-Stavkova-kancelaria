@@ -52,6 +52,10 @@
                             <c:out value="${user.login}" />
                         </c:when>
                         <c:otherwise>
+                            <s:link href="/security/signUp">
+                                <img src="${pageContext.request.contextPath}/img/user-32.png" 
+                                     alt="registrovat" title="Sign up" />
+                            </s:link>
                             <s:link href="/security/login">
                                 <img src="${pageContext.request.contextPath}/img/user-logged-out32.png" 
                                      alt="log in" title="log in" />
@@ -72,6 +76,12 @@
                         <c:when test="${loggedIn == true}">
                             <c:choose>
                                 <c:when test="${user.isUserAdmin == true}">
+                                    <li>
+                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
+                                            All tickets
+                                        </s:link>
+                                    </li>
+                                    
                                     <li>
                                         <s:link href="/event/">Events</s:link>
                                     </li>
@@ -106,8 +116,19 @@
                                         </li>
                                     </c:if>
                                     <li>
-                                        <s:link href="/event/listForUser">Overview of Events</s:link>
+                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
+                                            My tickets
+                                        </s:link>
                                     </li>
+                                    <li>
+                                        <s:link href="/event/listOfLeagues">Overview of Leagues</s:link>
+                                        <ul>
+                                            <li><s:link href="/event/listForUser">All Events</s:link></li>                           
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <s:link href="/statistics">Statistics</s:link>
+                                    </li>                                    
                                     <li>
                                         <s:link href="/userFavoriteSport">Favorite sports</s:link>                                        
                                     </li>

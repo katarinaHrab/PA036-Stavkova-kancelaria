@@ -76,16 +76,3 @@ INSERT INTO sport(
 INSERT INTO sport(
             id, kindofsport)
     VALUES (2, 'Hokej');
-
-INSERT INTO status(
-            id, name)
-    VALUES (1, 'Open');
-INSERT INTO status(
-            id, name)
-    VALUES (2, 'Closed');
-INSERT INTO status(
-            id, name)
-    VALUES (3, 'Winning');
-INSERT INTO status(
-            id, name)
-    VALUES (4, 'Losing');
