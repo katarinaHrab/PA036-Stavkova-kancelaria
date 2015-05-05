@@ -11,7 +11,7 @@
         <many-to-one name="status" class="cz.muni.fi.pa036.betting.model.Status" fetch="join" lazy="false">
             <column name="statusid" not-null="true" />
         </many-to-one>
-        <many-to-one name="user" class="cz.muni.fi.pa036.betting.model.User" fetch="select">
+        <many-to-one name="user" class="cz.muni.fi.pa036.betting.model.User" fetch="join" lazy="false">
             <column name="userid" not-null="true" />
         </many-to-one>
         <property name="dateofcreated" type="org.jadira.usertype.dateandtime.joda.PersistentDateTime">

@@ -11,9 +11,13 @@
             <table class="zakladni">
                 <tr>
                     <th>ID</th>
+                    <c:if test="${actionBean.isUserAdmin}">
+                    <th>User</th>
+                    </c:if>
                     <th>Status</th>
                     <th>Events count</th>
                     <th>Total odds</th>
+                    <th>Deposit</th>
                     <th>Won money</th>
                     <th>Action</th>
                 </tr>
@@ -22,6 +26,11 @@
                         <td>
                             <c:out value="${ticket.id}"/>
                         </td>
+                        <c:if test="${actionBean.isUserAdmin}">
+                            <td>
+                                <c:out value="${ticket.user.name}"/>
+                            </td>
+                        </c:if>
                         <td>
                             <c:out value="${ticket.status.name}"/>
                         </td>
@@ -30,6 +39,11 @@
                         </td>
                         <td>
                             <c:out value="${ticket.totalTicketOdds}"/>
+                        </td>
+                        <td>
+                            <c:if test="${ticket.status.id > 1}">
+                                <c:out value="${ticket.deposit}"/>
+                            </c:if>
                         </td>
                         <td>
                             <c:if test="${ticket.totalWonMoney > 0}">
