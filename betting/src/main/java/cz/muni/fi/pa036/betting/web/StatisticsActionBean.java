@@ -70,21 +70,23 @@ public class StatisticsActionBean extends BaseActionBean{
         
         List<Ticket> tickets = ticketService.findAllByUserId(getLoggedUser().getId());
         for (Ticket ticket : tickets) {
-            if (ticket.getStatus().getId() == Status.STATUS_WINNING)
-                sum += ticket.getDeposit();
-            else if (ticket.getStatus().getId() == Status.STATUS_LOSING)
-                sum-= ticket.getDeposit();
+            if (ticket.getStatus().getId() == Status.STATUS_WINNING) {
+                sum -= ticket.getDeposit();
+                sum += ticket.getTotalWonMoney();
+            } else if (ticket.getStatus().getId() == Status.STATUS_LOSING) {
+                sum -= ticket.getDeposit();
+            }
         }
         return sum;
     }
     
     public double getTicketsWonPercentage(){
         if(ticketsCount == 0) return 0;
-        return tiketsWon/ticketsCount;
+        return 100*(double)tiketsWon/ticketsCount;
     }
     
     public double getTicketsLostPercentage(){
         if(ticketsCount == 0) return 0;
-        return ticketsLost/ticketsCount;
+        return 100*(double)ticketsLost/ticketsCount;
     }
 }

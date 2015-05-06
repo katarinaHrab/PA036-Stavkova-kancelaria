@@ -16,17 +16,28 @@
                     <td class="label">Status</td>
                     <td><c:out value="${actionBean.ticket.status.name}"/></td>
                 </tr>
-                <c:if test="${actionBean.ticket.totalWonMoney > 0}">
+                <c:if test="${actionBean.ticket.status.id > 1}">
                     <tr>
                         <td class="label">Deposit</td>
                         <td>
                             <c:out value="${actionBean.ticket.deposit}" />
                         </td>
                     </tr>
+                </c:if>
+                <c:if test="${actionBean.ticket.totalWonMoney > 0}">
                     <tr>
                         <td class="label">Won money</td>
                         <td>
                             <c:out value="${actionBean.ticket.totalWonMoney}" />
+                        </td>
+                    </tr>
+                </c:if>
+                <c:if test="${actionBean.isUserAdmin}">
+                    
+                    <tr>
+                        <td class="label">User</td>
+                        <td>
+                            <c:out value="${actionBean.ticket.user.name}" />
                         </td>
                     </tr>
                 </c:if>

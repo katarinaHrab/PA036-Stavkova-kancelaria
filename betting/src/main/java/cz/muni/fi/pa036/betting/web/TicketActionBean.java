@@ -7,6 +7,7 @@ import cz.muni.fi.pa036.betting.model.Status;
 import cz.muni.fi.pa036.betting.model.Ticket;
 import cz.muni.fi.pa036.betting.model.TicketEvent;
 import cz.muni.fi.pa036.betting.model.TicketEventId;
+import cz.muni.fi.pa036.betting.model.User;
 import cz.muni.fi.pa036.betting.service.CompetitorService;
 import cz.muni.fi.pa036.betting.service.EventService;
 import cz.muni.fi.pa036.betting.service.StatusService;
@@ -325,7 +326,9 @@ public class TicketActionBean extends BaseActionBean {
                 ticketService.save(ticket);
                 
                 if (newStatus == Status.STATUS_WINNING) {
-                    // TODO: count winning odds of ticket and add money to user account
+                    User ticketUser = userService.findById(ticket.getUser().getId());
+                    ticketUser.setBalance(ticketUser.getBalance() + ticket.getTotalWonMoney());
+                    userService.save(ticketUser);
                 }
                 
                 return new RedirectResolution(TicketActionBean.class, "detail")

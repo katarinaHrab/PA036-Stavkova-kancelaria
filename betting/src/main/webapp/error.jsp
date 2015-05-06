@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
  
-<s:layout-render name="/layout.jsp" nadpis="Chyba">
+<s:layout-render name="/layout.jsp" nadpis="Error">
     <s:layout-component name="telo">
         <s:errors/>
         <c:if test="${exception != null}">
