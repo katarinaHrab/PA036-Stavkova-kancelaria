@@ -40,7 +40,7 @@
                             <c:out value="${event.place}"/>
                         </td>
                         <td>
-                            <c:out value="${event.date}"/>
+                            <s:format value="${event.date}" formatType="dateTimeCzech" />
                         </td>
                         <td>
                             <c:out value="${event.drawodds}"/>

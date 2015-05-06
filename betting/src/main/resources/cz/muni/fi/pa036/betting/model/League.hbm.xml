@@ -8,10 +8,10 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="country" class="cz.muni.fi.pa036.betting.model.Country" fetch="join">
+        <many-to-one name="country" class="cz.muni.fi.pa036.betting.model.Country" fetch="join" lazy="false">
             <column name="countryid" not-null="true" />
         </many-to-one>
-        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" fetch="join">
+        <many-to-one name="sport" class="cz.muni.fi.pa036.betting.model.Sport" fetch="join" lazy="false">
             <column name="sportid" not-null="true" />
         </many-to-one>
         <property name="name" type="string">

@@ -24,7 +24,7 @@
 
 <tr>
     <th><s:label for="date" name="event.date"/></th>
-    <td><s:text id="date" name="event.date"/></td>
+    <td><s:text id="date" name="event.date" class="datetimepicker" formatType="dateTimeCzech" /></td>
 </tr>
 
 <tr>

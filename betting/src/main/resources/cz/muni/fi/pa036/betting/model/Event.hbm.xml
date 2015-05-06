@@ -17,8 +17,8 @@
         <property name="place" type="string">
             <column name="place" length="50" not-null="true" />
         </property>
-        <property name="date" type="date">
-            <column name="date" length="13" not-null="true" />
+        <property name="date" type="org.jadira.usertype.dateandtime.joda.PersistentDateTime">
+            <column name="date" length="19" not-null="true" />
         </property>
         <property name="drawodds" type="double">
             <column name="drawodds" precision="17" scale="17" not-null="true" />

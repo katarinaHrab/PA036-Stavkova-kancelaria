@@ -5,8 +5,11 @@
  */
 package cz.muni.fi.pa036.betting.service;
 
+import com.googlecode.genericdao.search.Search;
 import cz.muni.fi.pa036.betting.dao.EventDAO;
 import cz.muni.fi.pa036.betting.model.Event;
+import java.util.List;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,18 @@ public class EventServiceImpl extends GenericServiceImpl<Event, Integer> impleme
     @Autowired
     public void setEventDAO(EventDAO dao) {
         super.dao = dao;
+    }
+
+    @Override
+    public List<Event> findAll() {
+        return dao.search(new Search()
+                .addFilterGreaterThan("date", DateTime.now())
+                .addFetch("league")
+                .addFetch("league.sport"));
+    }
+    
+    public List<Event> findAllWithPastEvents() {
+        return super.findAll();
     }
     
 }

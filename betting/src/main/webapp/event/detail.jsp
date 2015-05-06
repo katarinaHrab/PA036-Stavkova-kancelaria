@@ -26,7 +26,7 @@
                 </tr>
                 <tr>
                     <td class="label">Date</td>
-                    <td><c:out value="${actionBean.event.date}"/></td>
+                    <td><s:format value="${actionBean.event.date}" formatType="dateTimeCzech" /></td>
                 </tr>
                 <tr>
                     <td class="label">Drawodds</td>

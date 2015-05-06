@@ -19,7 +19,12 @@
                 /*$('input.datepicker').Zebra_DatePicker({
                     format: 'd. m. Y'
                 });*/
-                $('input.datetimepicker').datetimepicker();
+                var append = []; var i = 0; for(var xh=0;xh<=23;xh++){for(var xm=0;xm<60;xm+=15){append[i] = ('0'+xh).slice(-2)+':'+('0'+xm).slice(-2); i++;}}
+                $('input.datetimepicker').datetimepicker({
+                    format:'d.m.Y H:i',
+                    allowTimes: append
+                    //allowTimes:['09:00', '11:00', '12:00', '21:00']
+                });
                 $('input.datepicker').datetimepicker({
                     timepicker:false,
                     format:'d.m.Y'

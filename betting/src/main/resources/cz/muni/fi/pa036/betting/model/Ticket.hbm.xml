@@ -15,13 +15,13 @@
             <column name="userid" not-null="true" />
         </many-to-one>
         <property name="dateofcreated" type="org.jadira.usertype.dateandtime.joda.PersistentDateTime">
-            <column name="dateofcreated" length="13" not-null="true" />
+            <column name="dateofcreated" length="19" not-null="true" />
         </property>
         <property name="deposit" type="double">
             <column name="deposit" precision="17" scale="17" not-null="true" />
         </property>
         <property name="dateofclosed" type="org.jadira.usertype.dateandtime.joda.PersistentDateTime">
-            <column name="dateofclosed" length="13" />
+            <column name="dateofclosed" length="19" />
         </property>
         <set name="ticketEvents" cascade="all" table="ticket_event" inverse="true" lazy="false" fetch="join">
             <key>
