@@ -80,18 +80,22 @@ public class EventActionBean extends BaseActionBean{
     
     public Resolution setFilterEvents() {
         filterEvents = new TreeSet<Event>(new EventComparator());
-        filterEvents.addAll(getAllEvents());
+       /* filterEvents.addAll(getAllEvents());
+        System.out.println("filterevents: "+filterEvents);
         if (sportId!=null) {
-            List<Event> pom = new ArrayList<Event>();
+            SortedSet<Event> pom = new TreeSet<Event>(new EventComparator());
             for (Event e: filterEvents) {
                 if (e.getLeague().getSport().getId()!=sportId) {
                     pom.add(e);
                 }
             }
+            System.out.println("pom: "+pom);
             filterEvents.removeAll(pom);
+            
+             System.out.println("filtereventsRemoved: "+filterEvents);
         }
         if (leagueId!=null) {
-            List<Event> pom = new ArrayList<Event>();
+            SortedSet<Event> pom = new TreeSet<Event>(new EventComparator());
             for (Event e: filterEvents) {
                 if (e.getLeague().getId()!=leagueId) {
                     pom.add(e);
@@ -99,7 +103,36 @@ public class EventActionBean extends BaseActionBean{
             }
             filterEvents.removeAll(pom);
         }
-        System.out.println("league: "+leagueId+" ,sport: "+sportId);
+        System.out.println("league: "+leagueId+" ,sport: "+sportId);*/
+        if ((sportId==null) && (leagueId==null)) {
+            filterEvents.addAll(getAllEvents());
+        }
+        else {
+            if ((sportId==null)&&(leagueId!=0)) {
+                for (Event e: getAllEvents()) {
+                    if (e.getLeague().getId()==leagueId) {
+                        filterEvents.add(e);
+                    }
+                }
+            }
+            else {
+                if ((sportId!=null)&&(leagueId==null)) {
+                    for (Event e: getAllEvents()) {
+                        if (e.getLeague().getSport().getId()==sportId) {
+                            filterEvents.add(e);
+                        }
+                    }
+                }
+                else {
+                    for (Event e: getAllEvents()) {
+                        if ((e.getLeague().getSport().getId()==sportId)&&(e.getLeague().getId()==leagueId)) {
+                            filterEvents.add(e);
+                        }
+                    }
+                }
+            }
+        }
+        
         return new ForwardResolution("/event/listForUser.jsp");
     }
     
@@ -308,6 +341,9 @@ public class EventActionBean extends BaseActionBean{
         
         @Override
         public int compare(Event e1, Event e2) {
+            if (e1.equals(e2)) {
+                return 0;
+            }
             UserFavoriteSport sport1 = favoriteSportService.findByPriority(getLoggedUser().getId(), 1);
             UserFavoriteSport sport2 = favoriteSportService.findByPriority(getLoggedUser().getId(), 2);
             UserFavoriteSport sport3 = favoriteSportService.findByPriority(getLoggedUser().getId(), 3);
