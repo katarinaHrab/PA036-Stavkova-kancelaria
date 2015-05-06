@@ -116,6 +116,11 @@
                                         </li>
                                     </c:if>
                                     <li>
+                                        <s:link href="/user/account">
+                                            My account
+                                        </s:link>
+                                    </li>    
+                                    <li>
                                         <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
                                             My tickets
                                         </s:link>
