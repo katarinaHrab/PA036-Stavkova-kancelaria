@@ -7,7 +7,7 @@
     <th><s:label for="leagueId" name="event.league.id"/></th>
     <td>
         <s:select id="leagueId" name="event.league.id">
-            <s:options-collection collection="${leagueActionBean.allLeagues}" value="id" label="name" />
+            <s:options-collection collection="${leagueActionBean.allLeagues}" value="id" label="nameWithSport" />
         </s:select>
     </td>
 </tr>

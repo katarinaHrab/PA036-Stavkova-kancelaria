@@ -80,7 +80,9 @@ public class Competitor  implements java.io.Serializable {
         this.ticketEvents = ticketEvents;
     }
 
-
+    public String getNameWithSportAndCountry() {
+        return sport.getKindofsport() + " - " + country.getName() + " - " + name;
+    }
 
 
 }

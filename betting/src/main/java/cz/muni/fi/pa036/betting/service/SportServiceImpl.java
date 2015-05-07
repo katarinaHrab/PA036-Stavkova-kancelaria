@@ -27,5 +27,10 @@ public class SportServiceImpl extends GenericServiceImpl<Sport, Integer> impleme
             return null;
         }
     }
+
+    @Override
+    public List<Sport> findAll() {
+        return dao.search(new Search().addSortAsc("kindofsport"));
+    }
     
 }

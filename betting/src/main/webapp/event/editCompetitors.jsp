@@ -29,14 +29,18 @@
             </c:forEach>
         </table>
         
+        <br/>
+        
         <s:form beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" action="/event/addCompetitor">
             <s:hidden name="event.id" value="${actionBean.event.id}"/>
             <s:label for="competitorId">Competitor:</s:label>
             <s:select id="competitorId" name="competitorId">
-                <s:options-collection collection="${competitorActionBean.allCompetitors}" value="id" label="name" />
+                <s:options-collection collection="${competitorActionBean.allCompetitors}" value="id" label="nameWithSportAndCountry" />
             </s:select>
+            <br/>
             <s:label for="odds">Odds:</s:label>
             <s:text id="odds" name="odds"/>
+            <br/>
             <s:submit name="addCompetitor">Add competitor</s:submit>
         </s:form>
         

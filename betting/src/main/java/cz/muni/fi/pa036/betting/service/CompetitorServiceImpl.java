@@ -32,5 +32,10 @@ public class CompetitorServiceImpl extends GenericServiceImpl<Competitor, Intege
             return null;
         }
     }
+
+    @Override
+    public List<Competitor> findAll() {
+        return dao.search(new Search().addFetch("sport").addFetch("country").addSortAsc("sport.kindofsport").addSortAsc("country.name").addSortAsc("name"));
+    }
     
 }

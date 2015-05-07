@@ -217,7 +217,8 @@ public class EventActionBean extends BaseActionBean{
         if (getIsUserAdminOrBookmaker()) {
             log.debug("addAction()");
             eventService.save(event);
-            return new RedirectResolution(this.getClass(), "all");
+            this.getContext().getMessages().add(new SimpleMessage("Event was succesfully created, you can add competitors"));
+            return new RedirectResolution(this.getClass(), "editCompetitors").addParameter("event.id", event.getId());
         } else {
             log.warn(getLoggedUser().getLogin()
                     + " is trying to add new event without permission!");
@@ -289,7 +290,7 @@ public class EventActionBean extends BaseActionBean{
             if (ec == null) {
                 eventCompetitorService.save(new EventCompetitor(new EventCompetitorId(event.getId(), competitorId), null, event, odds));
                 getContext().getMessages().add(new SimpleMessage(
-                    "Competitor was added from event.", event.toString()));
+                    "Competitor was added to event.", event.toString()));
             }
             return new RedirectResolution(EventActionBean.class, "editCompetitors")
                     .addParameter("event.id", event.getId());

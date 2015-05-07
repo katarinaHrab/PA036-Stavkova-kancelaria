@@ -36,5 +36,10 @@ public class LeagueServiceImpl extends GenericServiceImpl<League, Integer> imple
             return null;
         }
     }
+
+    @Override
+    public List<League> findAll() {
+        return dao.search(new Search().addFetch("country").addFetch("sport").addSortAsc("sport.kindofsport").addSortAsc("country.name").addSortAsc("name"));
+    }
     
 }

@@ -38,5 +38,10 @@ public class CountryServiceImpl extends GenericServiceImpl<Country, Integer> imp
             return null;
         }
     }
+
+    @Override
+    public List<Country> findAll() {
+        return dao.search(new Search().addSortAsc("name"));
+    }
     
 }
