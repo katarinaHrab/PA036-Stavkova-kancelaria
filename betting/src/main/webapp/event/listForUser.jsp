@@ -28,7 +28,7 @@
                         <td>
                             <s:select id="leagueId" name="leagueId">
                                 <s:option value="" label="" />
-                                <s:options-collection collection="${leagueActionBean.allLeagues}" value="id" label="name" />
+                                <s:options-collection collection="${leagueActionBean.allLeagues}" value="id" label="nameWithSport" />
                             </s:select>
                         </td>
                     </tr>
@@ -49,7 +49,7 @@
                     <th>Date</th>
                    <th>Bet</th> 
                 </tr>
-                <c:forEach items="${eventActionBean.getFilterEvents()}" var="event">
+                <c:forEach items="${eventActionBean.filterEvents}" var="event">
                     <tr>
                         <td>
                             <c:out value="${event.league.sport.kindofsport}" />
@@ -112,6 +112,13 @@
                         </td>
                     </tr>
                 </c:forEach>
-            </table>   
+            </table>
+        
+        <c:forEach var="i" begin="1" end="${actionBean.pagesCount}">
+            <s:link beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" event="${actionBean.context.eventName}">
+                <s:param name="page" value="${i}" />
+                ${i}
+            </s:link>
+        </c:forEach>
     </s:layout-component>
 </s:layout-render>

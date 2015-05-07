@@ -85,10 +85,11 @@
                         <tr>
                             <td></td>
                             <td>
-                                <s:submit name="closeTicket" value="closeTicket" title="Close ticket" />
+                                <s:submit name="closeTicket" value="Close ticket" title="Close ticket" />
                             </td>
                         </tr>
                     </s:form>
+                    <s:errors/>
                 </c:if>
             </table>
     </s:layout-component>

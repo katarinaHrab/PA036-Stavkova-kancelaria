@@ -258,16 +258,16 @@ public class TicketActionBean extends BaseActionBean {
         if (getLoggedUser() != null) {
             ticket = (Ticket) getSessionParam(SESSION_TICKET);
             if (ticket != null) {
-                // TODO: check for user balance and subtract money from account
+                ticket.setDeposit(Double.parseDouble(getRequestParam("ticket.deposit")));
+                setSessionParam("user", userService.findById(getLoggedUser().getId()));
                 if (getLoggedUser().getBalance() < ticket.getDeposit()) {
                     log.warn(getLoggedUser().getLogin()
                             + " is trying to close ticket without enough money!");
                     this.getContext().getValidationErrors().addGlobalError(new SimpleError("You don't have enough money."));
-                    return new ForwardResolution("/error.jsp");
+                    return new ForwardResolution("/ticket/detail.jsp");
                 } else {
                     getLoggedUser().setBalance(getLoggedUser().getBalance() - ticket.getDeposit());
                     userService.save(getLoggedUser());
-                    ticket.setDeposit(Double.parseDouble(getRequestParam("ticket.deposit")));
                 }
                 
                 ticket.setStatus(statusService.findById(Status.STATUS_CLOSED));

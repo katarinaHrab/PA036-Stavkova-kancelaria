@@ -30,7 +30,7 @@ public class BaseActionBean implements ActionBean {
         this.page = page;
     }
 
-    private int limit = 100;
+    private int limit = 25;
 
     public int getLimit() {
         return limit;
@@ -79,6 +79,15 @@ public class BaseActionBean implements ActionBean {
     public boolean getIsUserAdmin() {
         return (getLoggedUser() != null)
                 && (getLoggedUser().getIsUserAdmin());
+    }
+    
+    public boolean getIsUserBookmaker() {
+        return (getLoggedUser() != null)
+                && (getLoggedUser().getIsUserBookmaker());
+    }
+    
+    public boolean getIsUserAdminOrBookmaker() {
+        return getIsUserAdmin() || getIsUserBookmaker();
     }
 
     public String getURLWithoutContextPath() {

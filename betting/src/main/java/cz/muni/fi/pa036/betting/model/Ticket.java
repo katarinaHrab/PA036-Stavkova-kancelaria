@@ -100,7 +100,7 @@ public class Ticket  implements java.io.Serializable {
         for (TicketEvent ticketEvent : ticketEvents) {
             result *= ticketEvent.getBetvalue();
         }
-        return result;
+        return (double)Math.round(result * 100) / 100;
     }
     
     public double getTotalWonMoney() {
@@ -108,7 +108,7 @@ public class Ticket  implements java.io.Serializable {
         if (this.status.getId() == Status.STATUS_WINNING) {
             result = this.deposit * getTotalTicketOdds();
         }
-        return result;
+        return (double)Math.round(result * 100) / 100;
     }
 
 }

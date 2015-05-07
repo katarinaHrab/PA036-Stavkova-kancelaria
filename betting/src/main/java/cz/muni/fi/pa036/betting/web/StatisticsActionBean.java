@@ -82,11 +82,11 @@ public class StatisticsActionBean extends BaseActionBean{
     
     public double getTicketsWonPercentage(){
         if(ticketsCount == 0) return 0;
-        return 100*(double)tiketsWon/ticketsCount;
+        return (double)Math.round(10000*(double)tiketsWon/ticketsCount) / 100;
     }
     
     public double getTicketsLostPercentage(){
         if(ticketsCount == 0) return 0;
-        return 100*(double)ticketsLost/ticketsCount;
+        return (double)Math.round(10000*(double)ticketsLost/ticketsCount) / 100;
     }
 }

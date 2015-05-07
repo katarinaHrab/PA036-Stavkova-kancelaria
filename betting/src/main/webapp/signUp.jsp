@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <td><s:submit name="submitSignUp">Sign up</s:submit></td>
+                        <td><s:submit name="submitSignUp" onclick="return confirm('By clicking OK, I confirm that I am adult and accept all legal terms.');">Sign up</s:submit></td>
                     </tr>
                 </table>
                 </fieldset>

@@ -43,4 +43,9 @@ public class TicketServiceImpl extends GenericServiceImpl<Ticket, Integer> imple
     public List<Ticket> findAllByUserId(int userId) {
         return dao.search(new Search().addFilterEqual("user.id", userId));
     }
+
+    @Override
+    public List<Ticket> findAll() {
+        return dao.search(new Search().addSortDesc("id"));
+    }
 }

@@ -63,7 +63,7 @@ public class CountryActionBean extends BaseActionBean {
     }    
     
     public Resolution add() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("add()");
             return new ForwardResolution("/country/add.jsp");
         } else {
@@ -75,7 +75,7 @@ public class CountryActionBean extends BaseActionBean {
     }
     
     public Resolution addAction() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("addAction()");
             countryService.save(country);
             return new RedirectResolution(this.getClass(), "all");
@@ -88,7 +88,7 @@ public class CountryActionBean extends BaseActionBean {
     }
     
     public Resolution edit() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("edit()", country.getId());
             return new ForwardResolution("/country/edit.jsp");
         } else {
@@ -100,7 +100,7 @@ public class CountryActionBean extends BaseActionBean {
     }
     
     public Resolution save() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("save() country={}", country);
             countryService.save(country);
             return new RedirectResolution(this.getClass(), "all");
@@ -113,7 +113,7 @@ public class CountryActionBean extends BaseActionBean {
     }
     
     public Resolution delete() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("delete()", country.getId());
             countryService.delete(country);
             
@@ -129,7 +129,7 @@ public class CountryActionBean extends BaseActionBean {
     }
     
     public Resolution detail() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("detail()", country.getId());            
             return new ForwardResolution("/country/detail.jsp");
         } else {

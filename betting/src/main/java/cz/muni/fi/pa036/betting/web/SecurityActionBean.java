@@ -22,6 +22,7 @@ import cz.muni.fi.pa036.betting.service.UserService;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 @Annotations.DoesNotRequireLogin
@@ -69,7 +70,7 @@ public class SecurityActionBean extends BaseActionBean {
     
     public Resolution submitSignUp() throws UnsupportedEncodingException{
         log.debug("submitSignUp()");
-        registrationOfUser.setBalance(0);
+        registrationOfUser.setBalance(20);
         registrationOfUser.setDatelastlogin(new Date()); 
         registrationOfUser.setPassword(DigestUtils.md5DigestAsHex(getPassword().getBytes("UTF-8")));
         
@@ -83,6 +84,8 @@ public class SecurityActionBean extends BaseActionBean {
         registrationOfUser.setContacts(contacts);
         
         userService.save(registrationOfUser);
+        
+        this.getContext().getMessages().add(new SimpleMessage("You have been succesfully registered, please log in"));
         
         return new ForwardResolution(this.getClass(), "login");
     }
@@ -113,6 +116,8 @@ public class SecurityActionBean extends BaseActionBean {
     public Resolution logout() {
         log.debug("logout()");
         this.getContext().getRequest().getSession().setAttribute("loggedIn", false);
+        removeSessionParam(TicketActionBean.SESSION_TICKET);
+        removeSessionParam("user");
         return new RedirectResolution(SecurityActionBean.class, "login");
     }
 

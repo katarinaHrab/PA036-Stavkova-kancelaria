@@ -6,8 +6,11 @@
 package cz.muni.fi.pa036.betting.service;
 
 
+import com.googlecode.genericdao.search.Search;
 import cz.muni.fi.pa036.betting.dao.CountryDAO;
 import cz.muni.fi.pa036.betting.model.Country;
+import cz.muni.fi.pa036.betting.model.Sport;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,4 +28,15 @@ public class CountryServiceImpl extends GenericServiceImpl<Country, Integer> imp
     public void setCountryDAO(CountryDAO dao) {
         super.dao = dao;
     }
+
+    @Override
+    public Country findByName(String name) {
+        List<Country> result = dao.search(new Search().addFilterEqual("name", name));
+        if (result.size() == 1) {
+            return result.get(0);
+        } else {
+            return null;
+        }
+    }
+    
 }

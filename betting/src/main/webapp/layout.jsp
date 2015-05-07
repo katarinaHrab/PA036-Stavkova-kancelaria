@@ -80,12 +80,14 @@
                     <c:choose>
                         <c:when test="${loggedIn == true}">
                             <c:choose>
-                                <c:when test="${user.isUserAdmin == true}">
-                                    <li>
-                                        <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
-                                            All tickets
-                                        </s:link>
-                                    </li>
+                                <c:when test="${actionBean.isUserAdminOrBookmaker == true}">
+                                    <c:if test="${user.isUserAdmin}">
+                                        <li>
+                                            <s:link beanclass="cz.muni.fi.pa036.betting.web.TicketActionBean" event="all">
+                                                All tickets
+                                            </s:link>
+                                        </li>
+                                    </c:if>
                                     
                                     <li>
                                         <s:link href="/event/">Events</s:link>

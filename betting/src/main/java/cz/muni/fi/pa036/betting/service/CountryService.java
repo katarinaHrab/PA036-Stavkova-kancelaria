@@ -13,4 +13,6 @@ import cz.muni.fi.pa036.betting.model.Country;
  */
 public interface CountryService extends GenericService<Country, Integer>{
     
+    public Country findByName(String name);
+    
 }

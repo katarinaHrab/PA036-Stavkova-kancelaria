@@ -36,7 +36,7 @@
                         </td>
 
                         <td>
-                            <c:if test="${actionBean.isUserAdmin}">
+                            <c:if test="${actionBean.isUserAdminOrBookmaker}">
                                 <s:link beanclass="cz.muni.fi.pa036.betting.web.CompetitorActionBean" event="edit">
                                     <s:param name="competitor.id" value="${competitor.id}"/>
                                     <img src="${pageContext.request.contextPath}/img/pencil.png" alt="edit competitor" title="edit competitor"></s:link>

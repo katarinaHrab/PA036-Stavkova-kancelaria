@@ -2,6 +2,7 @@ package cz.muni.fi.pa036.betting.web;
 
 import cz.muni.fi.pa036.betting.model.Sport;
 import cz.muni.fi.pa036.betting.service.SportService;
+import java.util.Comparator;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -53,7 +54,15 @@ public class SportActionBean extends BaseActionBean {
     }
     
     public List<Sport> getAllSports() {
-        return sportService.findAll();
+        List<Sport> result = sportService.findAll();
+        result.sort(new Comparator<Sport>() {
+
+            @Override
+            public int compare(Sport o1, Sport o2) {
+                return o1.getKindofsport().compareTo(o2.getKindofsport());
+            }
+        });
+        return result;
     }
     
     @DefaultHandler
@@ -63,7 +72,7 @@ public class SportActionBean extends BaseActionBean {
     }
     
     public Resolution add() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("add()");
             return new ForwardResolution("/sport/add.jsp");
         } else {
@@ -75,7 +84,7 @@ public class SportActionBean extends BaseActionBean {
     }
     
     public Resolution addAction() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("addAction()");
             sportService.save(sport);
             return new RedirectResolution(this.getClass(), "all");
@@ -88,7 +97,7 @@ public class SportActionBean extends BaseActionBean {
     }
 
     public Resolution edit() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("edit()", sport.getId());
             return new ForwardResolution("/sport/edit.jsp");
         } else {
@@ -100,7 +109,7 @@ public class SportActionBean extends BaseActionBean {
     }
 
     public Resolution save() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("save() sport={}", sport);
             sportService.save(sport);
             return new RedirectResolution(this.getClass(), "all");
@@ -113,7 +122,7 @@ public class SportActionBean extends BaseActionBean {
     }
 
     public Resolution delete() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("delete()", sport.getId());
             sportService.delete(sport);
             
@@ -129,7 +138,7 @@ public class SportActionBean extends BaseActionBean {
     }
     
     public Resolution detail() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("detail()", sport.getId());            
             return new ForwardResolution("/sport/detail.jsp");
         } else {

@@ -11,6 +11,7 @@ import java.util.Set;
 public class Role  implements java.io.Serializable {
 
     public static final Role ROLE_SUPERADMIN = new Role(1, "Superadmin");
+    public static final Role ROLE_BOOKMAKER = new Role(2, "Bookie");
 
      private int id;
      private String name;

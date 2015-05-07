@@ -65,7 +65,7 @@ public class CompetitorActionBean extends BaseActionBean {
     }
     
     public Resolution add() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("add()");
             return new ForwardResolution("/competitor/add.jsp");
         } else {
@@ -77,7 +77,7 @@ public class CompetitorActionBean extends BaseActionBean {
     }
     
     public Resolution addAction() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("addAction()");
             competitorService.save(competitor);
             return new RedirectResolution(this.getClass(), "all");
@@ -90,7 +90,7 @@ public class CompetitorActionBean extends BaseActionBean {
     }
 
     public Resolution edit() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("edit()", competitor.getId());
             return new ForwardResolution("/competitor/edit.jsp");
         } else {
@@ -102,7 +102,7 @@ public class CompetitorActionBean extends BaseActionBean {
     }
 
     public Resolution save() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("save() competitor={}", competitor);
             competitorService.save(competitor);
             return new RedirectResolution(this.getClass(), "all");
@@ -115,7 +115,7 @@ public class CompetitorActionBean extends BaseActionBean {
     }
 
     public Resolution delete() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("delete()", competitor.getId());
             competitorService.delete(competitor);
             
@@ -131,7 +131,7 @@ public class CompetitorActionBean extends BaseActionBean {
     }
     
     public Resolution detail() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("detail()", competitor.getId());            
             return new ForwardResolution("/competitor/detail.jsp");
         } else {

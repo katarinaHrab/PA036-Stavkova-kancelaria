@@ -68,18 +68,21 @@ public class EventActionBean extends BaseActionBean{
     private Double odds;
     private Integer leagueId;
     private Integer sportId;
-    private SortedSet<Event> filterEvents;
+    //private SortedSet<Event> filterEvents;
+    private List<Event> filterEvents;
 
-    public SortedSet<Event> getFilterEvents() {
+    //public SortedSet<Event> getFilterEvents() {
+    public List<Event> getFilterEvents() {
         if (filterEvents==null) {
-            filterEvents = new TreeSet<Event>(new EventComparator());
-            filterEvents.addAll(getAllEvents());
+            //filterEvents = new TreeSet<Event>(new EventComparator());
+            //filterEvents.addAll(getAllEvents());
+            filterEvents = getAllEvents();
          }
         return filterEvents;
     }
     
     public Resolution setFilterEvents() {
-        filterEvents = new TreeSet<Event>(new EventComparator());
+        //filterEvents = new TreeSet<Event>(new EventComparator());
        /* filterEvents.addAll(getAllEvents());
         System.out.println("filterevents: "+filterEvents);
         if (sportId!=null) {
@@ -104,34 +107,9 @@ public class EventActionBean extends BaseActionBean{
             filterEvents.removeAll(pom);
         }
         System.out.println("league: "+leagueId+" ,sport: "+sportId);*/
-        if ((sportId==null) && (leagueId==null)) {
-            filterEvents.addAll(getAllEvents());
-        }
-        else {
-            if ((sportId==null)&&(leagueId!=0)) {
-                for (Event e: getAllEvents()) {
-                    if (e.getLeague().getId()==leagueId) {
-                        filterEvents.add(e);
-                    }
-                }
-            }
-            else {
-                if ((sportId!=null)&&(leagueId==null)) {
-                    for (Event e: getAllEvents()) {
-                        if (e.getLeague().getSport().getId()==sportId) {
-                            filterEvents.add(e);
-                        }
-                    }
-                }
-                else {
-                    for (Event e: getAllEvents()) {
-                        if ((e.getLeague().getSport().getId()==sportId)&&(e.getLeague().getId()==leagueId)) {
-                            filterEvents.add(e);
-                        }
-                    }
-                }
-            }
-        }
+        
+        //filterEvents.addAll(getAllEvents());
+        filterEvents = getAllEvents();
         
         return new ForwardResolution("/event/listForUser.jsp");
     }
@@ -195,7 +173,26 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public List<Event> getAllEvents() {
-        return eventService.findAll();
+        if ((sportId == null) && (leagueId == null)) {
+            return eventService.findAllPaged(getPage(), getLimit(), new ArrayList<UserFavoriteSport>(getLoggedUser().getUserFavoriteSports()));
+        }
+        else {
+            if ((sportId == null) && (leagueId != null)) {
+                return eventService.findAllByLeagueId(leagueId);
+            }
+            else {
+                if ((sportId != null) && (leagueId == null)) {
+                    return eventService.findAllBySportId(sportId);
+                }
+                else {
+                    return eventService.findAllByLeagueAndSportId(leagueId, sportId);
+                }
+            }
+        }
+    }
+    
+    public Integer getPagesCount() {
+        return eventService.countAll() / getLimit();
     }
     
     @DefaultHandler
@@ -205,7 +202,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution add() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("add()");
             return new ForwardResolution("/event/add.jsp");
         } else {
@@ -217,7 +214,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution addAction() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("addAction()");
             eventService.save(event);
             return new RedirectResolution(this.getClass(), "all");
@@ -230,7 +227,7 @@ public class EventActionBean extends BaseActionBean{
     }
 
     public Resolution edit() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("edit()", event.getId());
             return new ForwardResolution("/event/edit.jsp");
         } else {
@@ -242,7 +239,7 @@ public class EventActionBean extends BaseActionBean{
     }
 
     public Resolution save() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("save() event={}", event);
             eventService.save(event);
             return new RedirectResolution(this.getClass(), "all");
@@ -255,7 +252,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution editCompetitors() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("editcompetitors event={}", event);
             return new ForwardResolution("/event/editCompetitors.jsp");
         } else {
@@ -267,7 +264,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution removeCompetitor() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("removecompetitor event={}", event);
             EventCompetitor ec = eventCompetitorService.findById(new EventCompetitorId(event.getId(), competitorId));
             if (ec != null) {
@@ -286,7 +283,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution addCompetitor() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("addCompetitor event={}", event);
             EventCompetitor ec = eventCompetitorService.findById(new EventCompetitorId(event.getId(), competitorId));
             if (ec == null) {
@@ -305,7 +302,7 @@ public class EventActionBean extends BaseActionBean{
     }
 
     public Resolution delete() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("delete()", event.getId());
             eventService.delete(event);
             
@@ -321,7 +318,7 @@ public class EventActionBean extends BaseActionBean{
     }
     
     public Resolution detail() {
-        if (getIsUserAdmin()) {
+        if (getIsUserAdminOrBookmaker()) {
             log.debug("detail()", event.getId());            
             return new ForwardResolution("/event/detail.jsp");
         } else {
@@ -344,9 +341,15 @@ public class EventActionBean extends BaseActionBean{
             if (e1.equals(e2)) {
                 return 0;
             }
-            UserFavoriteSport sport1 = favoriteSportService.findByPriority(getLoggedUser().getId(), 1);
-            UserFavoriteSport sport2 = favoriteSportService.findByPriority(getLoggedUser().getId(), 2);
-            UserFavoriteSport sport3 = favoriteSportService.findByPriority(getLoggedUser().getId(), 3);
+            UserFavoriteSport sport1 = null;
+            UserFavoriteSport sport2 = null;
+            UserFavoriteSport sport3 = null;
+            
+            for (UserFavoriteSport item : getLoggedUser().getUserFavoriteSports()) {
+                if (item.getPriority() == 1) {sport1 = item;}
+                if (item.getPriority() == 2) {sport2 = item;}
+                if (item.getPriority() == 3) {sport3 = item;}
+            }
             
             if (sport1!=null) {
                 if (e1.getLeague().getSport().equals(sport1.getSport())) {

@@ -28,7 +28,7 @@
                         </td>
 
                         <td>
-                            <c:if test="${actionBean.isUserAdmin}">
+                            <c:if test="${actionBean.isUserAdminOrBookmaker}">
                                 <s:link beanclass="cz.muni.fi.pa036.betting.web.CountryActionBean" event="edit">
                                     <s:param name="country.id" value="${country.id}"/>
                                     <img src="${pageContext.request.contextPath}/img/pencil.png" alt="edit country" title="edit country"></s:link>

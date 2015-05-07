@@ -144,6 +144,10 @@ public class User  implements java.io.Serializable {
         return (roles != null && roles.contains(Role.ROLE_SUPERADMIN));
     }
     
+    public boolean getIsUserBookmaker() {
+        return (roles != null && roles.contains(Role.ROLE_BOOKMAKER));
+    }
+    
     @Override
     public String toString(){
         return "name: " + name + " surname " + surname; 

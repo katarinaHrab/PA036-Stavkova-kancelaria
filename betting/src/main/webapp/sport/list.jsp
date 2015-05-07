@@ -28,7 +28,7 @@
                         </td>
 
                         <td>
-                            <c:if test="${actionBean.isUserAdmin}">
+                            <c:if test="${actionBean.isUserAdminOrBookmaker}">
                                 <s:link beanclass="cz.muni.fi.pa036.betting.web.SportActionBean" event="edit">
                                     <s:param name="sport.id" value="${sport.id}"/>
                                     <img src="${pageContext.request.contextPath}/img/pencil.png" alt="edit sport" title="edit sport"></s:link>

@@ -48,7 +48,7 @@
                         
                         
                         <td>
-                            <c:if test="${actionBean.isUserAdmin}">
+                            <c:if test="${actionBean.isUserAdminOrBookmaker}">
                                 <s:link beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" event="edit">
                                     <s:param name="event.id" value="${event.id}"/>
                                     <img src="${pageContext.request.contextPath}/img/pencil.png" alt="edit event" title="edit the event"></s:link>
@@ -69,6 +69,13 @@
                 <s:submit name="add" value="New event"/>
                 </p>
             </s:form>
+                
+        <c:forEach var="i" begin="1" end="${actionBean.pagesCount}">
+            <s:link beanclass="cz.muni.fi.pa036.betting.web.EventActionBean" event="${actionBean.context.eventName}">
+                <s:param name="page" value="${i}" />
+                ${i}
+            </s:link>
+        </c:forEach>
 
     </s:layout-component>
 </s:layout-render>

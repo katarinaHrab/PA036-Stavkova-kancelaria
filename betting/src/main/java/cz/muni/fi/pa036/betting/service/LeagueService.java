@@ -14,4 +14,6 @@ import cz.muni.fi.pa036.betting.model.League;
  */
 public interface LeagueService extends GenericService<League, Integer> {
     
+    public League findByName(String name);
+    
 }

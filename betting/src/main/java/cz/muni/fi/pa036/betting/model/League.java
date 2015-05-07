@@ -63,6 +63,11 @@ public class League  implements java.io.Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public String getNameWithSport() {
+        return this.sport.getKindofsport() + " - " + this.name;
+    }
+    
     public Set<Event> getEvents() {
         return this.events;
     }
